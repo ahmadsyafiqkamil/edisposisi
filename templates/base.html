@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aplikasi Disposisi Surat</title>
+
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+          type="text/css">
+    <link href="{% static 'css/icons/icomoon/styles.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/core.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/components.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/colors.css' %}" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+
+    <!-- Core JS files -->
+    <script type="text/javascript" src="{% static 'js/plugins/loaders/pace.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/core/libraries/jquery.min.js'%}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    {#    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/core/libraries/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/loaders/blockui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/ui/nicescroll.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/ui/drilldown.js' %}"></script>
+    <!-- /core JS files -->
+
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="{% static 'js/plugins/ui/prism.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/core/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/pages/form_layouts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/pages/form_inputs.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/ui/ripple.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/ui/nicescroll.min.js' %}"></script>
+    <!-- /theme JS files -->
+    {% block costum_css %}
+
+    {% endblock %}
+</head>
+
+<body>
+
+<!-- Main navbar -->
+<div class="navbar navbar-inverse bg-indigo">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="{% url 'dokumen:dashboard' %}">Aplikasi Disposisi Surat</a>
+
+        <ul class="nav navbar-nav pull-right visible-xs-block">
+            <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbar-mobile">
+        <ul class="nav navbar-nav">
+            <li>
+                <a class="sidebar-control sidebar-main-toggle hidden-xs" data-popup="tooltip" title="Collapse main"
+                   data-placement="bottom" data-container="body">
+                    <i class="icon-paragraph-justify3"></i>
+                </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-bubbles4"></i>
+                    <span class="visible-xs-inline-block position-right">Pesan</span>
+                    <span class="badge bg-warning-400">2</span>
+                </a>
+
+                <div class="dropdown-menu dropdown-content width-350">
+                    <div class="dropdown-content-heading">
+                        Messages
+                        <ul class="icons-list">
+                            <li><a href="#"><i class="icon-compose"></i></a></li>
+                        </ul>
+                    </div>
+                    {# TODO Tempat Message #}
+                    <ul class="media-list dropdown-content-body">
+                        <li class="media">
+                            <div class="media-left">
+                                <img src="{% static 'images/placeholder.jpg' %}" class="img-circle img-sm" alt="">
+                                <span class="badge bg-danger-400 media-badge">5</span>
+                            </div>
+
+                            <div class="media-body">
+                                <a href="#" class="media-heading">
+                                    <span class="text-semibold">James Alexander</span>
+                                    <span class="media-annotation pull-right">04:58</span>
+                                </a>
+
+                                <span class="text-muted">who knows, maybe that would be the best thing for me...</span>
+                            </div>
+                        </li>
+
+
+                    </ul>
+
+                    <div class="dropdown-content-footer">
+                        <a href="#" data-popup="tooltip" title="All messages"><i
+                                class="icon-menu display-block"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="dropdown dropdown-user">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="{% static 'images/placeholder.jpg' %}" alt="">
+                    <span>{{ user.get_full_name }}</span>
+                    <i class="caret"></i>
+                </a>
+
+
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+                    <li><a href="{% url 'accounts:logout' %}"><i class="icon-switch2"></i>Logout</a></li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- /main navbar -->
+
+
+<!-- breadcrumb -->
+<br>
+<div class="content-group border-top-lg border-top-primary">
+    <div class="page-header page-header-default">
+        {% block breadcrumb %} {% endblock %}
+    </div>
+</div>
+<!-- /breadcrumb -->
+
+
+<!-- Page container -->
+<div class="page-container">
+
+    <!-- Page content -->
+    <div class="page-content">
+
+        <!-- Main sidebar -->
+        <div class="sidebar sidebar-main sidebar-default">
+            <div class="sidebar-content">
+
+                <!-- Main navigation -->
+                <div class="sidebar-category sidebar-category-visible">
+                    <div class="sidebar-user-material">
+                        <div class="category-content">
+                            <div class="sidebar-user-material-content">
+                                <a href="#"><img src="{% static 'images/placeholder.jpg' %}"
+                                                 class="img-circle img-responsive" alt=""></a>
+                                <h6>{{ user.get_full_name }}</h6>
+{#                                <span class="text-size-small">{{ user.get_fungsi}}</span>#}
+                            </div>
+
+                            <div class="sidebar-user-material-menu">
+                                <a href="#user-nav" data-toggle="collapse"><span>My account</span> <i class="caret"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="navigation-wrapper collapse" id="user-nav">
+                            <ul class="navigation">
+                                <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+                                <li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="category-content no-padding">
+                        <ul class="navigation navigation-main navigation-accordion">
+
+                            <!-- Main -->
+                            <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i>
+                            </li>
+                            {% if user.is_admin %}
+                                <li><a href="{% url 'dokumen:dashboard' %}"><i class="icon-home4"></i><span>Dashboard</span></a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'dokumen:buat-dokumen' %}"><i class="icon-stack2"></i> <span>Dokumen Dinas</span></a>
+{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>NOTA DINAS</span></a></li></ul>#}
+{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>SURAT DINAS</span></a></li></ul>#}
+{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>NOTA DIPLOMATIK</span></a></li></ul>#}
+{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>SURAT KEPUTUSAN</span></a></li></ul>#}
+{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>SURAT PERINTAH KERJA</span></a></li></ul>#}
+                                </li>
+                                <li>
+                                    <a href="#"><i class="icon-stack2"></i> <span>Laporan</span></a>
+                                    <ul><li><a href="{% url 'dokumen:laporan-nota-dinas' %}"><i class="icon-stack2"></i><span>NOTA DINAS</span></a></li></ul>
+                                    <ul><li><a href="{% url 'dokumen:laporan-surat-dinas' %}"><i class="icon-stack2"></i><span>SURAT DINAS</span></a></li></ul>
+                                    <ul><li><a href="{% url 'dokumen:laporan-nota-diplomatik' %}"><i class="icon-stack2"></i><span>NOTA DIPLOMATIK</span></a></li></ul>
+                                    <ul><li><a href="{% url 'dokumen:laporan-surat-perintah' %}"><i class="icon-stack2"></i><span>SURAT PERINTAH</span></a></li></ul>
+                                    <ul><li><a href="{% url 'dokumen:laporan-surat-perintah-kerja' %}"><i class="icon-stack2"></i><span>SURAT PERINTAH KERJA</span></a></li></ul>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                        </li>
+                        <!-- /page kits -->
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- /main navigation -->
+
+            </div>
+        </div>
+        <!-- /main sidebar -->
+{# Konten #}
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <!-- /page content -->
+
+</div>
+<!-- /page container -->
+
+
+<!-- Footer -->
+<div class="navbar navbar-default navbar-fixed-bottom footer">
+    <ul class="nav navbar-nav visible-xs-block">
+        <li><a class="text-center collapsed" data-toggle="collapse" data-target="#footer"><i
+                class="icon-circle-up2"></i></a></li>
+    </ul>
+
+    <div class="navbar-collapse collapse" id="footer">
+        <div class="navbar-text">
+            &copy; {% now "Y" %}. <a href="#">Ahmad Syafiq Kamil</a>
+        </div>
+
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+                <!-- <li><a href="#">About</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Contact</a></li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- /footer -->
+
+{% block costum_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="KBRIKL-Nodin">
+    <serverData>
+      <paths name="KBRIKL-Nodin">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/var/www/edisposisi" local="$PROJECT_DIR$" web="http://172.21.31.94/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
