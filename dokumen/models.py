@@ -34,7 +34,7 @@ class Fungsi(models.Model):
         db_table = 'tbl_fungsi'
 
     def __str__(self):
-        return self.fungsi
+        return self.kode
 
 
 class JenisDokumen(models.Model):
