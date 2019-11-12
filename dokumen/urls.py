@@ -18,5 +18,9 @@ urlpatterns = [
 
     path('edit-dokumen/<slug:slug>',views.EditDokumen.as_view(), name='edit-dokumen'),
     path('hapus-dokumen/<slug:slug>',views.HapusSuratDinas.as_view(), name='hapus-dokumen'),
+    
+    
+    path('laporan-dokumen/',views.Laporan.as_view(), name='laporan-dokumen'),
+    
 ]
 

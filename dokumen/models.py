@@ -19,7 +19,7 @@ class Klasifikasi(models.Model):
         db_table = 'tbl_klasifikasi'
 
     def __str__(self):
-        return self.nama_klasifikasi
+        return "{} - {}".format(self.kode,self.nama_klasifikasi)
 
     # def get_kode(self):
     #     return self.kode
@@ -34,7 +34,7 @@ class Fungsi(models.Model):
         db_table = 'tbl_fungsi'
 
     def __str__(self):
-        return self.kode
+        return self.fungsi
 
 
 class JenisDokumen(models.Model):
@@ -54,7 +54,8 @@ class Dokumen(models.Model):
     nomor_surat = models.IntegerField(verbose_name='Nomor Surat')
     tanggal = models.DateField(verbose_name='Tanggal')
     pejabat_penandatangan = models.CharField(max_length=255, verbose_name='Pejabat Penandatangan')
-    tujuan = models.ForeignKey(Fungsi, on_delete=models.CASCADE, verbose_name='Tujuan Dokumen',related_name='tujuan')
+    tujuan = models.ManyToManyField(Fungsi, verbose_name='Tujuan Dokumen')
+    # tujuan = models.ForeignKey(Fungsi,on_delete=models.CASCADE, verbose_name='Tujuan Dokumen',related_name='tujuan')
     perihal = models.TextField(blank=True, null=True, verbose_name='Perihal')
     fungsi = models.ForeignKey(Fungsi, on_delete=models.CASCADE, verbose_name='Fungsi',related_name='fungsi_pengirim')
     jenis_dokumen = models.ForeignKey(JenisDokumen, on_delete=models.CASCADE, verbose_name='Jenis Dokumen',related_name='jenis')
@@ -71,5 +72,8 @@ class Dokumen(models.Model):
 
     def __str__(self):
         return self.nomor_surat_lengkap
+    
+    # def get_tujuan(self):
+    #     return self.tujuan.all().values_list('fungsi',flat=True)
 
 

@@ -37,52 +37,52 @@
             </div>
 
             <div class="panel-body">
-                <table class="table datatable-basic">
-                    <thead>
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th class="text-center">Nomor Surat</th>
-                        <th class="text-center">Klasifikasi</th>
-                        <th class="text-center">Tujuan</th>
-                        <th class="text-center">Pejabat Penandatangan</th>
-                        <th class="text-center">Perihal</th>
-                        <th class="text-center">Lampiran</th>
-                        <th class="text-center">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-
-                    {% for sd in data_surat_dinas %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ sd.nomor_surat_lengkap }}</td>
-                            <td>{{ sd.klasifikasi }}</td>
-                            <td>{{ sd.tujuan }}</td>
-                            <td>{{ sd.pejabat_penandatangan }}</td>
-                            <td>{{ sd.perihal }}</td>
-                            <td><a href="{{ sd.file_dokumen.url }}">lampiran</a></td>
-                            <td class="text-center">
-                                <ul class="icons-list">
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="icon-menu9"></i>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="{{ sd.slug }}">Edit</a></li>
-                                            <li>
+{#                <table class="table datatable-basic">#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th class="text-center">#</th>#}
+{#                        <th class="text-center">Nomor Surat</th>#}
+{#                        <th class="text-center">Klasifikasi</th>#}
+{#                        <th class="text-center">Tujuan</th>#}
+{#                        <th class="text-center">Pejabat Penandatangan</th>#}
+{#                        <th class="text-center">Perihal</th>#}
+{#                        <th class="text-center">Lampiran</th>#}
+{#                        <th class="text-center">Actions</th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{##}
+{##}
+{#                    {% for sd in data_surat_dinas %}#}
+{#                        <tr>#}
+{#                            <td>{{ forloop.counter }}</td>#}
+{#                            <td>{{ sd.nomor_surat_lengkap }}</td>#}
+{#                            <td>{{ sd.klasifikasi }}</td>#}
+{#                            <td>{{ sd.tujuan }}</td>#}
+{#                            <td>{{ sd.pejabat_penandatangan }}</td>#}
+{#                            <td>{{ sd.perihal }}</td>#}
+{#                            <td><a href="{{ sd.file_dokumen.url }}">lampiran</a></td>#}
+{#                            <td class="text-center">#}
+{#                                <ul class="icons-list">#}
+{#                                    <li class="dropdown">#}
+{#                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">#}
+{#                                            <i class="icon-menu9"></i>#}
+{#                                        </a>#}
+{#                                        <ul class="dropdown-menu dropdown-menu-right">#}
+{#                                            <li><a href="{{ sd.slug }}">Edit</a></li>#}
+{#                                            <li>#}
 {#                                                <input type="hidden" name="slug" value="{{ sd.slug }}">#}
 {#                                                <a href="{% url 'dokumen:hapus-surat-dinas' sd.slug %}">Hapus</a>#}
-                                                <a href="{% url 'dokumen:hapus-dokumen' sd.slug %}">Hapus</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+{#                                                <a href="{% url 'dokumen:hapus-dokumen' sd.slug %}">Hapus</a>#}
+{#                                            </li>#}
+{#                                        </ul>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </td>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                    </tbody>#}
+{#                </table>#}
 
 
             </div>

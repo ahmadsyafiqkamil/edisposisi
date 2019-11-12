@@ -17,7 +17,7 @@ def login(request):
             request.session['FULLNAME'] = user.get_full_name()
             request.session['USERNAME'] = user.get_username()
             request.session['ID_USER'] = user.get_id_user()
-            request.session['FOTO'] = user.get_foto()
+            # request.session['FOTO'] = user.get_foto()
             # request.session['KODE_FUNGSI'] =user.get_kode_fungsi()
             if user.is_admin:
                 return redirect('dokumen:dashboard')

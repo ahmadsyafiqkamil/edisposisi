@@ -15,6 +15,7 @@ from django_select2.forms import Select2MultipleWidget
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views import View
 
 
 # Create your views here.
@@ -31,6 +32,7 @@ class BuatDokumen(generic.edit.CreateView):
     form_class = DokumenForm
 
     def form_valid(self, form):
+        # super(BuatDokumen, self).form_valid()
         post = form.save(commit=False)
         bulan = form.cleaned_data['tanggal'].strftime('%m')
         tahun = int(form.cleaned_data['tanggal'].strftime('%Y'))
@@ -55,21 +57,48 @@ class BuatDokumen(generic.edit.CreateView):
 
         post.nomor_surat_lengkap = "{}.{}/{}/{}/{}/{}".format(kode_dokumen, nomor_surat, kode_klasifikasi, bulan,
                                                               tahun, kode_fungsi)
-        # tes = self.request.POST.getlist('tujuan')
-        # for x in tes:
-        #     print(x)
-        print(self.request.POST)
+        
+        print(self.request.POST.getlist('tujuan'))
         post.user = self.request.user
         post.nomor_surat = nomor_surat
         print("{}.{}/{}/{}/{}/{}".format(kode_dokumen, nomor_surat, kode_klasifikasi, bulan, tahun, kode_fungsi))
         post.save()
+        form.save_m2m()
         return redirect('dokumen:dashboard')
-
+    
     def form_invalid(self, form):
         print(form.errors)
-        return HttpResponse(form.errors)
+        print(form.errors.as_data())
+        print(self.request.POST.getlist('tujuan'))
+        return HttpResponse(form.errors.as_data())
+    
+    # def post(self, request, *args, **kwargs):
+    #     print(request.POST.getlist('tujuan'))
 
 
+@method_decorator(login_required, name='dispatch')
+class LaporanNotaDinas(generic.ListView):
+    template_name = 'dokumen/laporan-nota-dinas.html'
+    model = Dokumen
+    
+    # queryset = Dokumen.objects.filter(jenis_dokumen=4)
+    def get_context_data(self, **kwargs):
+        context = super(LaporanNotaDinas, self).get_context_data()
+        context['data_nota_dinas'] = Dokumen.objects.filter(jenis_dokumen=4)
+        
+        context['jenis_dokumen'] = JenisDokumen.objects.all()
+        return context
+
+@method_decorator(login_required, name='dispatch')
+class Laporan(generic.TemplateView):
+    template_name = 'dokumen/laporan-dokumen.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(Laporan, self).get_context_data()
+        context['data_nota_dinas'] = Dokumen.objects.all()
+        context['jenis_dokumen'] = JenisDokumen.objects.all()
+        return context
+    
 @method_decorator(login_required, name='dispatch')
 class LaporanSuratDinas(generic.ListView):
     template_name = 'dokumen/laporan-surat-dinas.html'
@@ -81,17 +110,6 @@ class LaporanSuratDinas(generic.ListView):
         return context
 
 
-@method_decorator(login_required, name='dispatch')
-class LaporanNotaDinas(generic.ListView):
-    template_name = 'dokumen/laporan-nota-dinas.html'
-    model = Dokumen
-
-    # queryset = Dokumen.objects.filter(jenis_dokumen=4)
-    def get_context_data(self, **kwargs):
-        context = super(LaporanNotaDinas, self).get_context_data()
-        context['data_nota_dinas'] = Dokumen.objects.filter(jenis_dokumen=4)
-        context['jenis_dokumen'] = JenisDokumen.objects.all()
-        return context
 
 
 @method_decorator(login_required, name='dispatch')

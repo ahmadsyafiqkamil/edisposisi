@@ -39,17 +39,17 @@
 
             <div class="panel-body">
 
-                <div class="form-group">
-
-                    <label class="control-label col-lg-2">Jenis Dokumen</label>
-                    <div class="col-lg-2">
-                        <select name="jenis_dokumen" class="form-control" id="jenis_dokumen" onchange="ambil_data(this)">
-                            {% for data in jenis_dokumen %}
-                                <option value="{{ data.pk }}">{{ data.jenis_dokumen }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
+{#                <div class="form-group">#}
+{##}
+{#                    <label class="control-label col-lg-2">Jenis Dokumen</label>#}
+{#                    <div class="col-lg-2">#}
+{#                        <select name="jenis_dokumen" class="form-control" id="jenis_dokumen" onchange="ambil_data(this)">#}
+{#                            {% for data in jenis_dokumen %}#}
+{#                                <option value="{{ data.pk }}">{{ data.jenis_dokumen }}</option>#}
+{#                            {% endfor %}#}
+{#                        </select>#}
+{#                    </div>#}
+{#                </div>#}
 {#                <script>#}
 {#                    function ambil_data(sel) {#}
 {#                        $.ajax({#}
