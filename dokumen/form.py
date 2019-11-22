@@ -1,5 +1,6 @@
 #  Copyright (c) 2019.
 #  Ahmad Syafiq Kamil
+from builtins import print
 
 from django import forms
 from django.conf import settings
@@ -9,6 +10,7 @@ from .models import Dokumen, Fungsi
 from bootstrap_datepicker_plus import DatePickerInput, DateTimePickerInput, MonthPickerInput
 from django_select2.forms import Select2MultipleWidget
 from dokumen.models import Klasifikasi, Fungsi, Dokumen, JenisDokumen
+from accounts.models import User, ProfileUser
 
 
 class DokumenForm(forms.ModelForm):
@@ -51,7 +53,7 @@ class DokumenForm(forms.ModelForm):
 				attrs={
 					'class': 'file-styled'
 				}
-				
+			
 			),
 			'tujuan': forms.SelectMultiple(
 				attrs={
@@ -71,3 +73,16 @@ class DokumenForm(forms.ModelForm):
 			'perihal': 'Perihal Dokumen',
 			'file_dokumen': 'File'
 		}
+	
+	def __init__(self ,*args, **kwargs):
+		user = kwargs.pop('user')
+		fungsi = kwargs.pop('fungsi')
+		super(DokumenForm, self).__init__(*args, **kwargs)
+		if user.is_admin:
+			print("admin")
+			self.fields['fungsi'].queryset = Fungsi.objects.all()
+		elif user.is_staff:
+			print(fungsi.fungsi.pk)
+			self.fields['fungsi'].queryset = Fungsi.objects.filter(pk = fungsi.fungsi.pk)
+		
+		

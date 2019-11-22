@@ -49,6 +49,13 @@ class JenisDokumen(models.Model):
 
 
 class Dokumen(models.Model):
+    pilihan_status = [
+        ('0','BELUM DIPROSES'),
+        ('1','PROSES'),
+        ('2','DISPOSISI'),
+        ('3','BATAL'),
+
+    ]
     slug = models.SlugField(unique=True)
     nomor_surat_lengkap = models.CharField(max_length=255, blank=True, null=True, verbose_name='Nomor Surat Lengkap')
     nomor_surat = models.IntegerField(verbose_name='Nomor Surat')
@@ -62,7 +69,9 @@ class Dokumen(models.Model):
     klasifikasi = models.ForeignKey(Klasifikasi, on_delete=models.CASCADE, verbose_name='Tujuan Dokumen',related_name='klasifikasi_dokumen')
     file_dokumen = models.FileField(upload_to='document/%Y-%m-%d/')
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,verbose_name='Pengirim', related_name='pengirim')
-
+    # keterangan = models.CharField(max_length=255,blank=True,null=True, verbose_name='Keterangan')
+    status = models.CharField(max_length=10,choices=pilihan_status, default=0,null=True)
+    
     def save(self, *args,**kwargs):
         self.slug = slugify(self.nomor_surat_lengkap)
         super(Dokumen,self).save(*args,**kwargs)
