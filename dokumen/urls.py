@@ -10,7 +10,10 @@ urlpatterns = [
     path('edit-dokumen/<slug:slug>',views.EditDokumen.as_view(), name='edit-dokumen'),
     path('hapus-dokumen/<slug:slug>',views.HapusSuratDinas.as_view(), name='hapus-dokumen'),
     path('laporan-dokumen/',views.Laporan.as_view(), name='laporan-dokumen'),
-    
+    # path('batal-dokumen/<slug:slug>',views.bataldokumen, name='batal-dokumen'),
+    # path('batal-dokumen',views.bataldokumen, name='batal-dokumen'),
+    path('batal-dokumen',views.BatalDokumen.as_view(), name='batal-dokumen'),
+
 #     laporan
 #     path('laporan-nota-dinas',views.LaporanNotaDinas.as_view(), name='laporan-nota-dinas'),
 #     path('laporan-nota-diplomatik',views.LaporanNotaDiplomatik.as_view(), name='laporan-nota-diplomatik'),

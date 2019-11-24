@@ -8,7 +8,7 @@ from django.views import generic
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 
-from .form import DokumenForm
+from .form import DokumenForm,EditForm
 from django.urls import reverse_lazy
 from .models import Dokumen, Fungsi, Klasifikasi, JenisDokumen
 from django_select2.forms import Select2MultipleWidget
@@ -134,7 +134,7 @@ class BatalDokumen(generic.View):
 @method_decorator(login_required, name='dispatch')
 class EditDokumen(generic.edit.UpdateView):
     slug_field = 'slug'
-    form_class = DokumenForm
+    form_class = EditForm
     model = Dokumen
     template_name = 'dokumen/update-dokumen.html'
 

@@ -88,7 +88,12 @@
 
                             <td>{{ nd.pejabat_penandatangan }}</td>
                             <td>{{ nd.perihal }}</td>
-                            <td><a href="{{ nd.file_dokumen.url }}">lampiran</a></td>
+                            <td>
+                                {% if nd.file_dokumen %}
+                                    <a href="{{ nd.file_dokumen.url }}">lampiran</a>
+                                {% else %}
+                                    Belum ada lampiran
+                                {% endif %}
                             <td>{% if nd.status == '0' %}
                                 BELUM DIPROSES
                             {% elif nd.status == "1" %}
@@ -113,8 +118,9 @@
                                             </li>
                                             <li>
                                                 {#                                                <button class="btn btn-primary" onclick="deleteDokumen({{ nd.slug }})">Delete</button>#}
-{#                                                <a href="#" id="batalDokumen" data-slug="{{ nd.slug }}">Delete</a>#}
-                                                <a href="#" data-id="{{ nd.slug }}" onclick="batal(this.getAttribute('data-id'));">Delete</a>
+                                                {#                                                <a href="#" id="batalDokumen" data-slug="{{ nd.slug }}">Delete</a>#}
+                                                <a href="#" data-id="{{ nd.slug }}"
+                                                   onclick="batal(this.getAttribute('data-id'));">Delete</a>
                                             </li>
                                             {#                                            <li>#}
                                             {#                                                <a href="#" class="coba" data-slug="{{ nd.slug }}">Batalkan Nomor#}
@@ -139,18 +145,18 @@
     </div>
     <script type="text/javascript">
 
-        function batal(slug){
+        function batal(slug) {
             var action = confirm("apakah anda yakin membatalkan nomor dokumen ini?");
-            if (action == true){
+            if (action == true) {
                 $.ajax({
-                    url:'{% url 'dokumen:batal-dokumen' %}',
-                    data:{
-                        'slug':slug,
+                    url: '{% url 'dokumen:batal-dokumen' %}',
+                    data: {
+                        'slug': slug,
                     },
-                    dataType:'json',
-                    success:function (data) {
-                        if(data.deleted){
-                            $(".datatable-basic #slug-"+slug).remove()
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.deleted) {
+                            $(".datatable-basic #slug-" + slug).remove()
                         }
                     }
                 })
