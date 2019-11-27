@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="6049d23b-b53c-4079-813b-066bc7341851" name="KBRIKL-Nodin" url="http://172.21.31.94">
-        <fileTransfer host="172.21.31.94" port="22" accessType="SFTP">
+      <webServer id="6049d23b-b53c-4079-813b-066bc7341851" name="KBRIKL-Nodin" url="http://172.21.31.95">
+        <fileTransfer host="172.21.31.95" port="22" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

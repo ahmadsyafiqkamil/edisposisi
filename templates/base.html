@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aplikasi Disposisi Surat</title>
+    <title>Aplikasi Nomor Dinas</title>
 
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
@@ -47,7 +47,7 @@
 <!-- Main navbar -->
 <div class="navbar navbar-inverse bg-indigo">
     <div class="navbar-header">
-        <a class="navbar-brand" href="{% url 'dokumen:dashboard' %}">Aplikasi Disposisi Surat</a>
+        <a class="navbar-brand" href="{% url 'dokumen:dashboard' %}">Aplikasi Nomor Dinas</a>
 
         <ul class="nav navbar-nav pull-right visible-xs-block">
             <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
@@ -155,7 +155,7 @@
                                 <a href="#"><img src="{% static 'images/placeholder.jpg' %}"
                                                  class="img-circle img-responsive" alt=""></a>
                                 <h6>{{ user.get_full_name }}</h6>
-{#                                <span class="text-size-small">{{ user.get_fungsi}}</span>#}
+                                {#                                <span class="text-size-small">{{ user.get_fungsi}}</span>#}
                             </div>
 
                             <div class="sidebar-user-material-menu">
@@ -177,27 +177,29 @@
                             <!-- Main -->
                             <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i>
                             </li>
-{#                            {% if user.is_admin %}#}
-                                <li><a href="{% url 'dokumen:dashboard' %}"><i class="icon-home4"></i><span>Dashboard</span></a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'dokumen:buat-dokumen' %}"><i class="icon-stack2"></i> <span>Dokumen Dinas</span></a>
-{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>NOTA DINAS</span></a></li></ul>#}
-{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>SURAT DINAS</span></a></li></ul>#}
-{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>NOTA DIPLOMATIK</span></a></li></ul>#}
-{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>SURAT KEPUTUSAN</span></a></li></ul>#}
-{#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>SURAT PERINTAH KERJA</span></a></li></ul>#}
-                                </li>
-{#                                <li>#}
-{#                                    <a href="{% url 'dokumen:laporan-dokumen' %}"><i class="icon-stack2"></i> <span>Laporan</span></a>#}
-{#                                    <ul><li><a href="{% url 'dokumen:laporan-dokumen' %}"><i class="icon-stack2"></i><span>LAPORAN DOKUMEN</span></a></li></ul>#}
-{#                                    <ul><li><a href="{% url 'dokumen:laporan-nota-dinas' %}"><i class="icon-stack2"></i><span>NOTA DINAS</span></a></li></ul>#}
-{#                                    <ul><li><a href="{% url 'dokumen:laporan-surat-dinas' %}"><i class="icon-stack2"></i><span>SURAT DINAS</span></a></li></ul>#}
-{#                                    <ul><li><a href="{% url 'dokumen:laporan-nota-diplomatik' %}"><i class="icon-stack2"></i><span>NOTA DIPLOMATIK</span></a></li></ul>#}
-{#                                    <ul><li><a href="{% url 'dokumen:laporan-surat-perintah' %}"><i class="icon-stack2"></i><span>SURAT PERINTAH</span></a></li></ul>#}
-{#                                    <ul><li><a href="{% url 'dokumen:laporan-surat-perintah-kerja' %}"><i class="icon-stack2"></i><span>SURAT PERINTAH KERJA</span></a></li></ul>#}
-{#                                </li>#}
-{#                            {% endif %}#}
+                            {#                            {% if user.is_admin %}#}
+                            <li><a href="{% url 'dokumen:dashboard' %}"><i class="icon-home4"></i><span>Dashboard</span></a>
+                            </li>
+                            <li>
+                                <a href="{% url 'dokumen:buat-dokumen' %}"><i class="icon-stack2"></i> <span>Surat Keluar</span></a>
+                                {#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>NOTA DINAS</span></a></li></ul>#}
+                                {#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>SURAT DINAS</span></a></li></ul>#}
+                                {#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>NOTA DIPLOMATIK</span></a></li></ul>#}
+                                {#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>SURAT KEPUTUSAN</span></a></li></ul>#}
+                                {#                                    <ul><li><a href="#"><i class="icon-stack2"></i><span>SURAT PERINTAH KERJA</span></a></li></ul>#}
+                            </li>
+{#                            <li><a href="{% url 'dokumen:dashboard' %}"><i class="icon-stack4"></i><span>Surat Masuk</span></a>#}
+                            </li>
+                            {#                                <li>#}
+                            {#                                    <a href="{% url 'dokumen:laporan-dokumen' %}"><i class="icon-stack2"></i> <span>Laporan</span></a>#}
+                            {#                                    <ul><li><a href="{% url 'dokumen:laporan-dokumen' %}"><i class="icon-stack2"></i><span>LAPORAN DOKUMEN</span></a></li></ul>#}
+                            {#                                    <ul><li><a href="{% url 'dokumen:laporan-nota-dinas' %}"><i class="icon-stack2"></i><span>NOTA DINAS</span></a></li></ul>#}
+                            {#                                    <ul><li><a href="{% url 'dokumen:laporan-surat-dinas' %}"><i class="icon-stack2"></i><span>SURAT DINAS</span></a></li></ul>#}
+                            {#                                    <ul><li><a href="{% url 'dokumen:laporan-nota-diplomatik' %}"><i class="icon-stack2"></i><span>NOTA DIPLOMATIK</span></a></li></ul>#}
+                            {#                                    <ul><li><a href="{% url 'dokumen:laporan-surat-perintah' %}"><i class="icon-stack2"></i><span>SURAT PERINTAH</span></a></li></ul>#}
+                            {#                                    <ul><li><a href="{% url 'dokumen:laporan-surat-perintah-kerja' %}"><i class="icon-stack2"></i><span>SURAT PERINTAH KERJA</span></a></li></ul>#}
+                            {#                                </li>#}
+                            {#                            {% endif %}#}
 
                         </ul>
                         </li>
@@ -211,7 +213,7 @@
             </div>
         </div>
         <!-- /main sidebar -->
-{# Konten #}
+        {# Konten #}
         {% block content %}
 
         {% endblock %}

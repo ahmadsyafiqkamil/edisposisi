@@ -29,7 +29,7 @@ class dashboard(generic.TemplateView):
         if self.request.user.is_admin:
             context['data_nota_dinas'] = Dokumen.objects.all().exclude(status=3)
         elif self.request.user.is_staff:
-            print(ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk)
+
             context['data_nota_dinas'] = Dokumen.objects.exclude(status=3).filter(
                 fungsi=ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk)
         # context['jenis_dokumen'] = JenisDokumen.objects.all()
