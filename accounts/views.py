@@ -5,6 +5,7 @@ from django.http import Http404
 from django.views import generic
 from django.urls import reverse_lazy
 from .models import User,ProfileUser
+from .form import profileForm
 
 # Create your views here.
 
@@ -53,5 +54,11 @@ def logout(request):
 
 class Profile(generic.edit.CreateView):
     model = ProfileUser
-    fields = '__all__'
+    form_class = profileForm
     template_name = 'account/profile.html'
+    
+    # def get_form_kwargs(self):
+    #     kwargs = super(Profile, self).get_form_kwargs()
+    #     kwargs.update({'user':self.request.user})
+    #     return kwargs
+        
