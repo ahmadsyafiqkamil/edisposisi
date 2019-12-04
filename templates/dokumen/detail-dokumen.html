@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block breadcrumb %}
+    <div class="page-header-content">
+        <div class="page-title">
+            <h5>
+                <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Laporan</span>
+
+                <small class="display-block"></small>
+            </h5>
+        </div>
+
+        <div class="heading-elements">
+            <ul class="breadcrumb heading-text">
+                <li><a href="{% url 'dokumen:dashboard' %}"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li><a href="{% url 'dokumen:laporan-dokumen' %}"><i class="icon-home2 position-left"></i> Laporan
+                    Nota Dinas</a></li>
+                {#                <li><a href="components_breadcrumbs.html">Components</a></li>#}
+                {#                <li class="active">Location</li>#}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="content-wrapper">
+
+        <!-- Sidebars overview -->
+        <div class="panel panel-primary ">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{ object }}</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
+                        <li><a data-action="close"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="hover">
+                    <li>
+                        <a class="fab-menu-btn btn bg-blue btn-float btn-rounded btn-icon">
+                            <i class="fab-icon-open icon-plus3"></i>
+                            <i class="fab-icon-close icon-cross2"></i>
+                        </a>
+
+                        <ul class="fab-menu-inner">
+                            <li>
+                                <div data-fab-label="Tandai telah dibaca">
+                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">
+                                        <i class="icon-reading"></i>
+                                    </a>
+                                </div>
+                            </li>
+{#                            <li>#}
+{#                                <div data-fab-label="Disposisi">#}
+{#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
+{#                                        <i class="icon-stack4"></i>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <div data-fab-label="Teruskan Disposisi">#}
+{#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
+{#                                        <i class="icon-next"></i>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <div data-fab-label="Balas">#}
+{#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
+{#                                        <i class="icon-compose"></i>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </li>#}
+                            <li>
+                                <div data-fab-label="Arsip">
+                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">
+                                        <i class="icon-archive"></i>
+                                    </a>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                </ul>
+
+
+                {% if object.file_dokumen %}
+                    <div class="embed-responsive embed-responsive-16by9">
+
+                        <iframe class="embed-responsive-item" src="{{ object.file_dokumen.url }}"
+                                allowfullscreen></iframe>
+
+                    </div>
+                {% else %}
+                    Belum unggah file
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- /sidebar classes -->
+
+    </div>
+
+
+{% endblock %}
+{% block costum_js %}
+    <script type="text/javascript" src="{% static 'js/plugins/ui/fab.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/ui/prism.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/pages/extra_fab.js' %}"></script>
+{% endblock %}
+{% block costum_css %}
+    <style>
+        .pdfobject-container {
+            height: 30rem;
+            border: 1rem solid rgba(0, 0, 0, .1);
+        }
+    </style>
+{% endblock %}

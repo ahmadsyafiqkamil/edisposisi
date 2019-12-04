@@ -13,6 +13,7 @@ urlpatterns = [
     # path('batal-dokumen/<slug:slug>',views.bataldokumen, name='batal-dokumen'),
     # path('batal-dokumen',views.bataldokumen, name='batal-dokumen'),
     path('batal-dokumen',views.BatalDokumen.as_view(), name='batal-dokumen'),
+    path('detail-dokumen/<slug:slug>',views.DetailDokumen.as_view(), name='detail-dokumen'),
 
 #     laporan
 #     path('laporan-nota-dinas',views.LaporanNotaDinas.as_view(), name='laporan-nota-dinas'),

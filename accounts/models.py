@@ -132,19 +132,19 @@ class ProfileUser(models.Model):
 	user_notifikasi_email = models.CharField(max_length=2, blank=True, verbose_name="Email Notifikasi")
 	fungsi = models.ForeignKey(to='dokumen.Fungsi', on_delete=models.CASCADE, related_name='fungsi_user')
 	# HS
-	nip = models.CharField(max_length=50, verbose_name="NIP", blank=True, null=True, )
-	pangkat = models.CharField(max_length=255, verbose_name="Pangkat/Golongan", blank=True, null=True, )
-	tmt = models.DateField(verbose_name="TMT", blank=True, null=True)
-	gelar_diplomatik = models.CharField(max_length=255, blank=True, null=True, verbose_name="Gelar Diplomatik")
-	tmt_gelar = models.DateField(verbose_name="TMT", blank=True, null=True)
-	bulan_tiba = models.DateField(verbose_name="Bulan tiba di Perwakilan", blank=True, null=True)
-	# LS & THL
-	jenis_pekerjaan = models.CharField(max_length=255, blank=True, null=True, verbose_name='Jenis Pekerjaan')
-	awal_kontrak = models.DateField(verbose_name="Awal Kontrak", blank=True, null=True, )
-	akhir_kontrak = models.DateField(verbose_name="Akhir Kontrak", blank=True, null=True, )
-	kewarganegaraan = models.CharField(max_length=50, verbose_name="Kewarganegaraan", blank=True, null=True)
-	pendidikan = models.CharField(max_length=50, blank=True, null=True, verbose_name="Pendidikan")
-	jabatan = models.ForeignKey(Jabatan, on_delete=models.CASCADE, related_name='kode_jabatan',blank=True,null=True)
+	# nip = models.CharField(max_length=50, verbose_name="NIP", blank=True, null=True, )
+	# pangkat = models.CharField(max_length=255, verbose_name="Pangkat/Golongan", blank=True, null=True, )
+	# tmt = models.DateField(verbose_name="TMT", blank=True, null=True)
+	# gelar_diplomatik = models.CharField(max_length=255, blank=True, null=True, verbose_name="Gelar Diplomatik")
+	# tmt_gelar = models.DateField(verbose_name="TMT", blank=True, null=True)
+	# bulan_tiba = models.DateField(verbose_name="Bulan tiba di Perwakilan", blank=True, null=True)
+	# # LS & THL
+	# jenis_pekerjaan = models.CharField(max_length=255, blank=True, null=True, verbose_name='Jenis Pekerjaan')
+	# awal_kontrak = models.DateField(verbose_name="Awal Kontrak", blank=True, null=True, )
+	# akhir_kontrak = models.DateField(verbose_name="Akhir Kontrak", blank=True, null=True, )
+	# kewarganegaraan = models.CharField(max_length=50, verbose_name="Kewarganegaraan", blank=True, null=True)
+	# pendidikan = models.CharField(max_length=50, blank=True, null=True, verbose_name="Pendidikan")
+	# jabatan = models.ForeignKey(Jabatan, on_delete=models.CASCADE, related_name='kode_jabatan',blank=True,null=True)
 	
 	
 	class Meta:

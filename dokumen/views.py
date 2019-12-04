@@ -27,11 +27,13 @@ class dashboard(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(dashboard, self).get_context_data()
         if self.request.user.is_admin:
-            context['data_nota_dinas'] = Dokumen.objects.all().exclude(status=3)
+            context['data_surat_masuk'] = Dokumen.objects.all().exclude(status=3)
+            context['data_surat_keluar'] = Dokumen.objects.all().exclude(status=3)
         elif self.request.user.is_staff:
 
-            context['data_nota_dinas'] = Dokumen.objects.exclude(status=3).filter(
+            context['data_surat_keluar'] = Dokumen.objects.exclude(status=3).filter(
                 fungsi=ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk)
+            context['data_surat_masuk'] = Dokumen.objects.exclude(status=3).filter(tujuan=ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk)
         # context['jenis_dokumen'] = JenisDokumen.objects.all()
         return context
 
@@ -86,10 +88,6 @@ class BuatDokumen(generic.edit.CreateView):
             print("2",tahun_terakhir.first())
             nomor_surat = 1
 
-
-
-
-
         print("nomor surat baru",nomor_surat)
         post.nomor_surat_lengkap = "{}.{}/{}/{}/{}/{}".format(kode_dokumen, nomor_surat, kode_klasifikasi, bulan,
                                                               tahun, kode_fungsi)
@@ -120,6 +118,7 @@ class HapusSuratDinas(generic.edit.DeleteView):
     template_name = 'delete.html'
 
 
+@method_decorator(login_required, name='dispatch')
 class BatalDokumen(generic.View):
     def get(self, request):
         slug = request.GET.get('slug', None)
@@ -156,36 +155,61 @@ class EditDokumen(generic.edit.UpdateView):
         kode_fungsi = form.cleaned_data['fungsi'].kode
         kode_dokumen = form.cleaned_data['jenis_dokumen'].kode
         nomor_surat = 0
-        nomor_terakhir = Dokumen.objects.filter(klasifikasi=id_klasifikasi).aggregate(Max('nomor_surat'))
+        nomor = Dokumen.objects.filter(klasifikasi=id_klasifikasi, tanggal__year=tahun).aggregate(Max('nomor_surat'))
+        nomor_terakhir = nomor['nomor_surat__max']
         tahun_terakhir = Dokumen.objects.filter(klasifikasi=id_klasifikasi).order_by('-tanggal').values_list("tanggal",
                                                                                                              flat=True)[
                          :1]
-        if tahun_terakhir.first() is None:
-            nomor_surat = 1
-        elif tahun_terakhir.first().year <= tahun:
-            nomor_surat = 1
-        elif tahun_terakhir.first().year == tahun:
-            if nomor_terakhir['nomor_surat__max'] is None:
+        id_klasifikasi_terakhir = Dokumen.objects.get(slug=self.kwargs.get('slug')).klasifikasi_id
+        print("id slug ",self.kwargs.get('slug'))
+        print("id klasifikasi terakhir ",id_klasifikasi_terakhir)
+        #
+        if id_klasifikasi == id_klasifikasi_terakhir:
+            nomor_surat = nomor_terakhir
+        else:
+            print(nomor_terakhir)
+            print(tahun)
+            # ini masih masalah
+            if tahun_terakhir.first() is None:
+                print("1", tahun_terakhir.first())
                 nomor_surat = 1
-            else:
-                nomor_surat = nomor_terakhir['nomor_surat__max'] + 1
-
+        
+            elif tahun_terakhir.first().year == tahun:
+                print("3", tahun_terakhir.first())
+                if nomor_terakhir == 0:
+                    nomor_surat = 1
+                else:
+                    nomor_surat = nomor_terakhir + 1
+        
+            elif tahun_terakhir.first().year <= tahun:
+                print("2", tahun_terakhir.first())
+                nomor_surat = 1
+    
+        print("nomor surat baru", nomor_surat)
         post.nomor_surat_lengkap = "{}.{}/{}/{}/{}/{}".format(kode_dokumen, nomor_surat, kode_klasifikasi, bulan,
                                                               tahun, kode_fungsi)
-        # tes = self.request.POST.getlist('tujuan')
-        # for x in tes:
-        #     print(x)
-        print(self.request.POST)
+    
+        print(self.request.POST.getlist('tujuan'))
         post.user = self.request.user
         post.nomor_surat = nomor_surat
         print("{}.{}/{}/{}/{}/{}".format(kode_dokumen, nomor_surat, kode_klasifikasi, bulan, tahun, kode_fungsi))
         post.save()
+        form.save_m2m()
         return redirect('dokumen:dashboard')
 
     def form_invalid(self, form):
-        print(form.errors)
-        return HttpResponse(form.errors)
+        return self.render_to_response(self.get_context_data(form=form))
 
+class DetailDokumen(generic.DetailView):
+    template_name = 'dokumen/detail-dokumen.html'
+    model = Dokumen
+    # slug_field = 'slug'
+    
+    # def get_context_data(self, **kwargs):
+    #     context = super(DetailDokumen, self).get_context_data()
+    #     context['data'] = Dokumen.objects.filter(slug=self.request['slug'])
+    #     print(self.request['slug'])
+    #     return context
 
 # tidak dipakai
 @method_decorator(login_required, name='dispatch')

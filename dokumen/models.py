@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import User
 from django.utils.text import slugify
 from django.urls import reverse
+from .validators import validate_file_extension
 
 
 
@@ -61,13 +62,13 @@ class Dokumen(models.Model):
     nomor_surat = models.IntegerField(verbose_name='Nomor Surat')
     tanggal = models.DateField(verbose_name='Tanggal')
     pejabat_penandatangan = models.CharField(max_length=255, verbose_name='Pejabat Penandatangan')
-    tujuan = models.ManyToManyField(Fungsi, verbose_name='Tujuan Dokumen')
-    # tujuan = models.ForeignKey(Fungsi,on_delete=models.CASCADE, verbose_name='Tujuan Dokumen',related_name='tujuan')
+    tujuan = models.ManyToManyField(Fungsi, through='TujuanDokumen',through_fields=('dokumen', 'fungsi'))
+    # tujuan = models.ManyToManyField(Fungsi, verbose_name='Tujuan Dokumen')
     perihal = models.TextField(blank=True, null=True, verbose_name='Perihal')
     fungsi = models.ForeignKey(Fungsi, on_delete=models.CASCADE, verbose_name='Fungsi',related_name='fungsi_pengirim')
     jenis_dokumen = models.ForeignKey(JenisDokumen, on_delete=models.CASCADE, verbose_name='Jenis Dokumen',related_name='jenis')
     klasifikasi = models.ForeignKey(Klasifikasi, on_delete=models.CASCADE, verbose_name='Tujuan Dokumen',related_name='klasifikasi_dokumen')
-    file_dokumen = models.FileField(upload_to='document/%Y-%m-%d/')
+    file_dokumen = models.FileField(upload_to='document/%Y-%m-%d/',validators=[validate_file_extension])
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,verbose_name='Pengirim', related_name='pengirim')
     # keterangan = models.CharField(max_length=255,blank=True,null=True, verbose_name='Keterangan')
     status = models.CharField(max_length=10,choices=pilihan_status, default=0,null=True)
@@ -81,8 +82,13 @@ class Dokumen(models.Model):
 
     def __str__(self):
         return self.nomor_surat_lengkap
-    
-    # def get_tujuan(self):
-    #     return self.tujuan.all().values_list('fungsi',flat=True)
 
+class TujuanDokumen(models.Model):
+    # status
+    # 1 =
+    dokumen = models.ForeignKey(Dokumen, on_delete=models.CASCADE)
+    fungsi = models.ForeignKey(Fungsi, on_delete=models.CASCADE)
+    status = models.IntegerField(max_length=5, verbose_name="Status",null=True,blank=True)
+    class Meta:
+        db_table = 'tbl_tujuan_dokumen'
 

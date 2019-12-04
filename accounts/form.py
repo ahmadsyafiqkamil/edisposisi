@@ -8,57 +8,57 @@ from .models import User, ProfileUser
 #         fields= ['email','user_name','user_nama_lengkap']
 
 class profileForm(forms.ModelForm):
-	tmt = forms.DateField(
-		widget=forms.DateInput(
-			format=('%Y-%m-%d'),
-			attrs={'id': 'datepicker'}
-		)
-	)
-	
-	tmt_gelar = forms.DateField(
-		widget=forms.DateInput(
-			format=('%Y-%m-%d'),
-			attrs={'id': 'datepicker1'}
-		)
-	)
-	awal_kontrak = forms.DateField(
-		widget=forms.DateInput(
-			format=('%Y-%m-%d'),
-			attrs={'id': 'datepicker2'}
-		)
-	)
-	
-	akhir_kontrak = forms.DateField(
-		widget=forms.DateInput(
-			format=('%Y-%m-%d'),
-			attrs={'id': 'datepicker3'}
-		)
-	)
-	bulan_tiba = forms.DateField(
-		widget=forms.DateInput(
-			format=('%Y-%m-%d'),
-			attrs={'id': 'datepicker4'}
-		)
-	)
+	# tmt = forms.DateField(
+	# 	widget=forms.DateInput(
+	# 		format=('%Y-%m-%d'),
+	# 		attrs={'id': 'datepicker'}
+	# 	)
+	# )
+	#
+	# tmt_gelar = forms.DateField(
+	# 	widget=forms.DateInput(
+	# 		format=('%Y-%m-%d'),
+	# 		attrs={'id': 'datepicker1'}
+	# 	)
+	# )
+	# awal_kontrak = forms.DateField(
+	# 	widget=forms.DateInput(
+	# 		format=('%Y-%m-%d'),
+	# 		attrs={'id': 'datepicker2'}
+	# 	)
+	# )
+	#
+	# akhir_kontrak = forms.DateField(
+	# 	widget=forms.DateInput(
+	# 		format=('%Y-%m-%d'),
+	# 		attrs={'id': 'datepicker3'}
+	# 	)
+	# )
+	# bulan_tiba = forms.DateField(
+	# 	widget=forms.DateInput(
+	# 		format=('%Y-%m-%d'),
+	# 		attrs={'id': 'datepicker4'}
+	# 	)
+	# )
 	class Meta:
 		model = ProfileUser
 		fields = [
 			# 'user',
-			'nip',
+			# 'nip',
 			'user_foto',
 			'user_nama_lengkap',
-			'jenis_pekerjaan',
+			# 'jenis_pekerjaan',
 			'fungsi',
-			'jabatan',
-			'awal_kontrak',
-			'akhir_kontrak',
-			'kewarganegaraan',
-			'bulan_tiba',
-			'gelar_diplomatik',
-			'pangkat',
-			'pendidikan',
-			'tmt',
-			'tmt_gelar'
+			# 'jabatan',
+			# 'awal_kontrak',
+			# 'akhir_kontrak',
+			# 'kewarganegaraan',
+			# 'bulan_tiba',
+			# 'gelar_diplomatik',
+			# 'pangkat',
+			# 'pendidikan',
+			# 'tmt',
+			# 'tmt_gelar'
 		]
 	
 	widgets = {

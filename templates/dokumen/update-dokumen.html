@@ -23,7 +23,7 @@
     </div>
 {% endblock %}
 {% block content %}
-<div class="content-wrapper">
+    <div class="content-wrapper">
 
         <!-- Sidebars overview -->
         <div class="panel panel-success ">
@@ -53,13 +53,15 @@
                                 <label class="control-label col-lg-2">{{ field.label }}</label>
                                 <div class="col-lg-10">
                                     {{ field |add_class:'form-control' }}
+                                    {% for error in field.errors %}
+                                     <span class="help-block warning">{{ error }}</span>
+                                {% endfor %}
                                 </div>
+
                             </div>
                         </fieldset>
                     {% endfor %}
-                    {% for error in field.errors %}
-                        <div class="form-control-feedback">{{ error }}</div>
-                    {% endfor %}
+
                     <br>
                     <br>
                     <div class="col-lg-12 text-right">
@@ -77,7 +79,7 @@
 
     </div>
 
-        <!-- /sidebar classes -->
+    <!-- /sidebar classes -->
 
     </div>
 

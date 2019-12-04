@@ -11,6 +11,9 @@ from bootstrap_datepicker_plus import DatePickerInput, DateTimePickerInput, Mont
 from django_select2.forms import Select2MultipleWidget
 from dokumen.models import Klasifikasi, Fungsi, Dokumen, JenisDokumen
 from accounts.models import User, ProfileUser
+from django.template.defaultfilters import filesizeformat
+from django.utils.translation import ugettext_lazy as _
+
 
 
 class DokumenForm(forms.ModelForm):
@@ -151,3 +154,6 @@ class EditForm(forms.ModelForm):
 		elif user.is_staff:
 			print(fungsi.fungsi.pk)
 			self.fields['fungsi'].queryset = Fungsi.objects.filter(pk=fungsi.fungsi.pk)
+			
+	# def clean_file_dokumen(self):
+	
