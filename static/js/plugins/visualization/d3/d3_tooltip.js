@@ -1,7 +1,7 @@
-// d3.tip
-// Copyright (c) 2013 Justin Palmer
-//
-// Tooltips for d3.js SVG visualizations
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
 
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {

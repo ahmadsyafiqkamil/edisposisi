@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /**
 Address editable input.
 Internally value stored as {city: "Moscow", street: "Lenina", building: "15"}

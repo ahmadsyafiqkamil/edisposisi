@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /**
  * Arabic translation for bootstrap-wysihtml5
  */

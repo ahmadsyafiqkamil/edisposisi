@@ -1,3 +1,6 @@
+#  Copyright (c) 2019.
+#  Ahmad Syafiq Kamil
+
 from . import views
 from django.urls import path, include
 

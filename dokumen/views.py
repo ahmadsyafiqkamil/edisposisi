@@ -1,3 +1,6 @@
+#  Copyright (c) 2019.
+#  Ahmad Syafiq Kamil
+
 from builtins import super, slice
 
 # from Tools.scripts.patchcheck import status

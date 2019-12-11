@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // Define search commands. Depends on dialog.js or another
 // implementation of the openDialog method.
 

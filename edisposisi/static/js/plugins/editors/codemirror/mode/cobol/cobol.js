@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /**
  * Author: Gautam Mehta
  * Branched from CodeMirror's Scheme mode

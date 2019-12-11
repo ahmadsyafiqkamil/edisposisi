@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /* ------------------------------------------------------------------------------
 *
 *  # Handsontable - Excel-like tables with extensive funtionality

@@ -1,3 +1,6 @@
+#  Copyright (c) 2019.
+#  Ahmad Syafiq Kamil
+
 from django.db import models
 from accounts.models import User
 from django.utils.text import slugify

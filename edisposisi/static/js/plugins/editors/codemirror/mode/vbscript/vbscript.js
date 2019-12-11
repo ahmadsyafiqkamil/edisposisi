@@ -1,4 +1,9 @@
 /*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
+/*
 For extra ASP classic objects, initialize CodeMirror instance with this option:
     isASP: true
 

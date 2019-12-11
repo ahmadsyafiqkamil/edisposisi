@@ -1,3 +1,6 @@
+#  Copyright (c) 2019.
+#  Ahmad Syafiq Kamil
+
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from accounts.models import User,ProfileUser

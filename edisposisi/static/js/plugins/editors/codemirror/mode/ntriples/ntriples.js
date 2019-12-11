@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /**********************************************************
 * This script provides syntax highlighting support for
 * the Ntriples format.

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // Spanish
 
 jQuery.extend( jQuery.fn.pickadate.defaults, {

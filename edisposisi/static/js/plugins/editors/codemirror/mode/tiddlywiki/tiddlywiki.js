@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /***
     |''Name''|tiddlywiki.js|
     |''Description''|Enables TiddlyWikiy syntax highlighting using CodeMirror|

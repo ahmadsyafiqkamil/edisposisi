@@ -1,3 +1,6 @@
+#  Copyright (c) 2019.
+#  Ahmad Syafiq Kamil
+
 from django.shortcuts import render,redirect
 from django.views import generic
 from django.contrib import auth

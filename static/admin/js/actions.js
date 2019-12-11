@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /*global gettext, interpolate, ngettext*/
 (function($) {
     'use strict';

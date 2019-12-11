@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // Open simple dialogs on top of an editor. Relies on dialog.css.
 
 (function(mod) {

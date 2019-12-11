@@ -1,26 +1,6 @@
-// Extending Fancytree
-// ===================
-//
-// See also the [live demo](http://wwwendt.de/tech/fancytree/demo/sample-ext-childcounter.html) of this code.
-//
-// Every extension should have a comment header containing some information
-// about the author, copyright and licensing. Also a pointer to the latest
-// source code.
-// Prefix with `/*!` so the comment is not removed by the minifier.
-
-/*!
- * jquery.fancytree.childcounter.js
- *
- * Add a child counter bubble to tree nodes.
- * (Extension module for jquery.fancytree.js: https://github.com/mar10/fancytree/)
- *
- * Copyright (c) 2008-2017, Martin Wendt (http://wwWendt.de)
- *
- * Released under the MIT license
- * https://github.com/mar10/fancytree/wiki/LicenseInfo
- *
- * @version 2.22.1
- * @date 2017-04-21T05:55:46Z
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
  */
 
 // To keep the global namespace clean, we wrap everything in a closure

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // Spectrum Colorpicker
 // Danish (dk) localization
 // https://github.com/bgrins/spectrum

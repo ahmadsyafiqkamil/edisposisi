@@ -1,4 +1,9 @@
 /*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
+/*
  * Author: Constantin Jucovschi (c.jucovschi@jacobs-university.de)
  * Licence: MIT
  */

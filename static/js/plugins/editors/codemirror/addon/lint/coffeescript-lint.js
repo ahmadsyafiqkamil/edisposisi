@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // Depends on coffeelint.js from http://www.coffeelint.org/js/coffeelint.js
 
 // declare global: coffeelint

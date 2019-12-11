@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /**
  * Author: Koh Zi Han, based on implementation by Koh Zi Chun
  */

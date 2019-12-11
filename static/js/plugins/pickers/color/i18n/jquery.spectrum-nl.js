@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // Spectrum Colorpicker
 // Dutch (nl-nl) localization
 // https://github.com/bgrins/spectrum

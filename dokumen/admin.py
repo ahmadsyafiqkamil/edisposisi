@@ -1,3 +1,6 @@
+#  Copyright (c) 2019.
+#  Ahmad Syafiq Kamil
+
 from django.contrib import admin
 from .models import Dokumen,Fungsi,JenisDokumen,Klasifikasi
 

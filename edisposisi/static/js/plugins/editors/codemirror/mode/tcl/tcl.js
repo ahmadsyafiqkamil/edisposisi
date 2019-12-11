@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 //tcl mode by Ford_Lawnmower :: Based on Velocity mode by Steve O'Hara
 
 (function(mod) {

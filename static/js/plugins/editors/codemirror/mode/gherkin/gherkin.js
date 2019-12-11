@@ -1,4 +1,9 @@
 /*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
+/*
 Gherkin mode - http://www.cukes.info/
 Report bugs/issues here: https://github.com/marijnh/CodeMirror/issues
 */

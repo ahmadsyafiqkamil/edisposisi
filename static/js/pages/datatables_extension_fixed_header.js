@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /* ------------------------------------------------------------------------------
 *
 *  # Fixed Header extension for Datatables

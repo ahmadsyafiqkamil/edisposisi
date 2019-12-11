@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /**
  * Link to the project's GitHub page:
  * https://github.com/pickhardt/coffeescript-codemirror-mode

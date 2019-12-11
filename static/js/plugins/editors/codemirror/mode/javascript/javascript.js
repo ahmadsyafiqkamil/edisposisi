@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // TODO actually recognize syntax of TypeScript constructs
 
 (function(mod) {

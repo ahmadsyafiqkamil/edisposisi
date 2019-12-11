@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /*global DateTimeShortcuts, SelectFilter*/
 /**
  * Django admin inlines

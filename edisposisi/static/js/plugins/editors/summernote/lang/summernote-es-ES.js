@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 (function ($) {
   $.extend($.summernote.lang, {
     'es-ES': {

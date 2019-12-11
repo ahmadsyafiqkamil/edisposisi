@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // Depends on csslint.js from https://github.com/stubbornella/csslint
 
 // declare global: CSSLint

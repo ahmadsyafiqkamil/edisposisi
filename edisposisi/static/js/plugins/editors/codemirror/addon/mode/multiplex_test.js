@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 (function() {
   CodeMirror.defineMode("markdown_with_stex", function(){
     var inner = CodeMirror.getMode({}, "stex");

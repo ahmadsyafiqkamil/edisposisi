@@ -1,12 +1,6 @@
 /*
-
- * DC jQuery Drill Down Menu - jQuery drill down ipod menu
- * Copyright (c) 2011 Design Chemical
- *
- * Dual licensed under the MIT and GPL licenses:
- * 	http://www.opensource.org/licenses/mit-license.php
- * 	http://www.gnu.org/licenses/gpl.html
- *
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
  */
 
 (function($){

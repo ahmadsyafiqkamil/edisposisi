@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 var gdpData = {
   "AF": 16.63,
   "AL": 11.58,

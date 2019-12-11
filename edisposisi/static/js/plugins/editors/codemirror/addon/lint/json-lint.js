@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // Depends on jsonlint.js from https://github.com/zaach/jsonlint
 
 // declare global: jsonlint

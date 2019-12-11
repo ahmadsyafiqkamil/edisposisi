@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /**
  * Full HTML5 compatibility rule set
  * These rules define which tags and css classes are supported and which tags should be specially treated.

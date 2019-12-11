@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 // Highlighting text that matches the selection
 //
 // Defines an option highlightSelectionMatches, which, when enabled,

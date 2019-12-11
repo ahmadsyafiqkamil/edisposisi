@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 /* Just enough of CodeMirror to run runMode under node.js */
 
 // declare global: StringStream

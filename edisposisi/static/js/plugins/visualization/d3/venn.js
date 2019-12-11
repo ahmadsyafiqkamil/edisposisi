@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019.
+ * Ahmad Syafiq Kamil
+ */
+
 (function(venn) {
     "use strict";
     /** given a list of set objects, and their corresponding overlaps.
