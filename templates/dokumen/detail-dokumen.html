@@ -28,7 +28,7 @@
         <!-- Sidebars overview -->
         <div class="panel panel-primary ">
             <div class="panel-heading">
-                <h5 class="panel-title">{{ object }}</h5>
+                <h5 class="panel-title">Detail Surat</h5>
                 <div class="heading-elements">
                     <ul class="icons-list">
                         <li><a data-action="collapse"></a></li>
@@ -39,6 +39,18 @@
             </div>
 
             <div class="panel-body">
+
+                {#            {{ tujuan.status }}#}
+                <div id="info">
+                    {% if tujuan.status == 1 or tujuan.status is None  %}
+                        <p style="font-size: x-large" id="info-{{ dokumen.slug }}" class="text-center bg-primary">Sudah
+                            Di baca</p>
+                    {% else %}
+                        <p style="font-size: x-large" id="info-{{ dokumen.slug }}" class="text-center bg-warning">Belum
+                            Di baca</p>
+                    {% endif %}
+                </div>
+
                 <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="hover">
                     <li>
                         <a class="fab-menu-btn btn bg-blue btn-float btn-rounded btn-icon">
@@ -47,48 +59,137 @@
                         </a>
 
                         <ul class="fab-menu-inner">
-                            <li>
-                                <div data-fab-label="Tandai telah dibaca">
-                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">
-                                        <i class="icon-reading"></i>
-                                    </a>
-                                </div>
-                            </li>
-{#                            <li>#}
-{#                                <div data-fab-label="Disposisi">#}
-{#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
-{#                                        <i class="icon-stack4"></i>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <div data-fab-label="Teruskan Disposisi">#}
-{#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
-{#                                        <i class="icon-next"></i>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </li>#}
-{#                            <li>#}
-{#                                <div data-fab-label="Balas">#}
-{#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
-{#                                        <i class="icon-compose"></i>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </li>#}
-                            <li>
-                                <div data-fab-label="Arsip">
-                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">
-                                        <i class="icon-archive"></i>
-                                    </a>
-                                </div>
-                            </li>
+                            {% if tujuan.status == 1 or tujuan.status is None %}
+                                <li>
+                                    <div data-fab-label="Arsipkan">
+                                        <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">
+                                            <i id="icon-{{ dokumen.slug }}" class="icon-archive"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <div id="label-{{ dokumen.slug }}" data-fab-label="Tandai telah dibaca">
+                                        <a class="btn btn-default btn-rounded btn-icon btn-float"
+                                           id="link-{{ dokumen.slug }}" href="#" data-id="{{ dokumen.slug }}"
+                                           onclick="baca(this.getAttribute('data-id'))">
+                                            <i id="icon-{{ dokumen.slug }}" class="icon-reading"></i>
+                                        </a>
+
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {#                            <li>#}
+                            {#                                <div data-fab-label="Disposisi">#}
+                            {#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
+                            {#                                        <i class="icon-stack4"></i>#}
+                            {#                                    </a>#}
+                            {#                                </div>#}
+                            {#                            </li>#}
+                            {#                            <li>#}
+                            {#                                <div data-fab-label="Teruskan Disposisi">#}
+                            {#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
+                            {#                                        <i class="icon-next"></i>#}
+                            {#                                    </a>#}
+                            {#                                </div>#}
+                            {#                            </li>#}
+                            {#                            <li>#}
+                            {#                                <div data-fab-label="Balas">#}
+                            {#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
+                            {#                                        <i class="icon-compose"></i>#}
+                            {#                                    </a>#}
+                            {#                                </div>#}
+                            {#                            </li>#}
+                            {#                            <li>#}
+                            {#                                <div data-fab-label="Arsip">#}
+                            {#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
+                            {#                                        <i class="icon-archive"></i>#}
+                            {#                                    </a>#}
+                            {#                                </div>#}
+                            {#                            </li>#}
 
 
                         </ul>
                     </li>
                 </ul>
 
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Jenis Dokumen</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.jenis_dokumen }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Nomor Surat</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.nomor_surat_lengkap }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Fungsi</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.fungsi }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Tujuan</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul>
+                                        {% for foo in dokumen.tujuan.all %}
+                                            <li>{{ foo }}</li>
+                                        {% endfor %}
+                                    </ul>
 
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Tanggal</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.tanggal }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Pejabat Penandatangan</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.pejabat_penandatangan }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Pejabat Penandatangan</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <textarea rows="5" cols="5" class="form-control"
+                                          disabled="disabled">{{ dokumen.perihal }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% if object.file_dokumen %}
                     <div class="embed-responsive embed-responsive-16by9">
 
@@ -112,6 +213,35 @@
     <script type="text/javascript" src="{% static 'js/plugins/ui/fab.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/plugins/ui/prism.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/pages/extra_fab.js' %}"></script>
+
+    <script>
+        function baca(slug) {
+            var action = confirm("Apakah anda yakin menandai dokumen ini telah dibaca?")
+            if (action == true) {
+                $.ajax({
+                    url: '{% url 'dokumen:baca-dokumen'%}',
+                    data: {
+                        'slug': slug,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.read) {
+                            $("#info-" + slug).removeClass()
+                            $("#info-" + slug).toggleClass("text-center bg-primary").text("Sudah Di baca")
+
+                            $(".fab-menu-inner #link-"+slug).attr("onclick","link arsip")
+                            $(".fab-menu-inner #label-"+slug).attr("data-fab-label","Arsipkan")
+                            $(".fab-menu-inner #icon-"+slug).attr("class","icon-archive")
+                            {#window.location.replace({% url 'dokumen:detail-dokumen' %}+slug)#}
+
+
+
+                        }
+                    }
+                })
+            }
+        }
+    </script>
 {% endblock %}
 {% block costum_css %}
     <style>
@@ -119,5 +249,8 @@
             height: 30rem;
             border: 1rem solid rgba(0, 0, 0, .1);
         }
+
+
     </style>
+
 {% endblock %}

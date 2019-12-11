@@ -62,7 +62,7 @@ class Dokumen(models.Model):
     nomor_surat = models.IntegerField(verbose_name='Nomor Surat')
     tanggal = models.DateField(verbose_name='Tanggal')
     pejabat_penandatangan = models.CharField(max_length=255, verbose_name='Pejabat Penandatangan')
-    tujuan = models.ManyToManyField(Fungsi, through='TujuanDokumen',through_fields=('dokumen', 'fungsi'))
+    tujuan = models.ManyToManyField(Fungsi, through='TujuanDokumen',through_fields=('dokumen', 'fungsi'), related_name='tujuan_dokumen')
     # tujuan = models.ManyToManyField(Fungsi, verbose_name='Tujuan Dokumen')
     perihal = models.TextField(blank=True, null=True, verbose_name='Perihal')
     fungsi = models.ForeignKey(Fungsi, on_delete=models.CASCADE, verbose_name='Fungsi',related_name='fungsi_pengirim')
@@ -82,13 +82,17 @@ class Dokumen(models.Model):
 
     def __str__(self):
         return self.nomor_surat_lengkap
+    
+  
 
 class TujuanDokumen(models.Model):
     # status
-    # 1 =
+    # 0 = unread
+    # 1 = readS
     dokumen = models.ForeignKey(Dokumen, on_delete=models.CASCADE)
     fungsi = models.ForeignKey(Fungsi, on_delete=models.CASCADE)
-    status = models.IntegerField(max_length=5, verbose_name="Status",null=True,blank=True)
+    status = models.IntegerField(verbose_name="Status",null=True,blank=True,default=0)
     class Meta:
         db_table = 'tbl_tujuan_dokumen'
-
+    
+    

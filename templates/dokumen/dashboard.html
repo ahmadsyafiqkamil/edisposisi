@@ -131,8 +131,8 @@
                                         <th class="text-center">Tujuan</th>
                                         <th class="text-center">Pejabat Penandatangan</th>
                                         <th class="text-center">Perihal</th>
+{#                                        <th class="text-center">Status</th>#}
                                         <th class="text-center">Lampiran</th>
-
                                         <th class="text-center">Actions</th>
                                     </tr>
                                     </thead>
@@ -152,6 +152,9 @@
 
                                             <td>{{ nd.pejabat_penandatangan }}</td>
                                             <td>{{ nd.perihal }}</td>
+{#                                            <td>#}
+                                                {#                                                <span id="status-{{ nd.slug }}" class="">coba</span>#}
+{#                                            </td>#}
 
                                             {% if nd.file_dokumen %}
                                                 <td><a href="{{ nd.file_dokumen.url }}">lampiran</a></td>
@@ -163,16 +166,9 @@
                                                             </a>
                                                             <ul class="dropdown-menu dropdown-menu-right">
                                                                 <li>
-                                                                    <a href="{% url 'dokumen:detail-dokumen' nd.slug %}">Telah
-                                                                        Dibaca</a>
+{#                                                                    <a id="link-{{ nd.slug }}" href="#" data-id="{{ nd.slug }}" onclick="baca(this.getAttribute('data-id'))">Baca</a>#}
+                                                                    <a href="{% url 'dokumen:detail-dokumen' nd.slug %}">detail</a>
                                                                 </li>
-                                                                {#                                                            <li>#}
-                                                                {#                                                                <a href="{% url 'dokumen:detail-dokumen' nd.slug %}">Detail</a>#}
-                                                                {#                                                            </li>#}
-                                                                {#                                                            <li>#}
-                                                                {#                                                                <a href="{% url 'dokumen:detail-dokumen' nd.slug %}">Detail</a>#}
-                                                                {#                                                            </li>#}
-
                                                             </ul>
                                                         </li>
                                                     </ul>
@@ -202,6 +198,26 @@
 
     </div>
     <script type="text/javascript">
+
+        function baca(slug) {
+            var action = confirm("Apakah anda yakin menandai dokumen ini telah dibaca?")
+            if (action == true) {
+                $.ajax({
+                    url: '{% url 'dokumen:baca-dokumen'%}',
+                    data: {
+                        'slug': slug,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.read) {
+                            $(".datatable-basic #slug-" + slug + " #status-" + slug).toggleClass("bg-success text-highlight")
+                            $(".datatable-basic #slug-" + slug + " #link-" + slug).text("Sudah terbaca")
+
+                        }
+                    }
+                })
+            }
+        }
 
         function batal(slug) {
             var action = confirm("apakah anda yakin membatalkan nomor dokumen ini?");

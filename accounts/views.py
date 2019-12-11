@@ -6,6 +6,9 @@ from django.views import generic
 from django.urls import reverse_lazy
 from .models import User,ProfileUser
 from .form import profileForm
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 
@@ -19,10 +22,10 @@ def login(request):
             request.session['USERNAME'] = user.get_username()
             request.session['ID_USER'] = user.get_id_user()
             # request.session['FOTO'] = user.get_foto()
-            # request.session['KODE_FUNGSI'] =user.get_kode_fungsi()
             if user.is_admin:
                 return redirect('dokumen:dashboard')
             elif user.is_staff:
+                request.session['KODE_FUNGSI'] =ProfileUser.objects.values_list("fungsi", flat=True).get(user=user.pk)
                 return redirect('dokumen:dashboard')
             else:
                 raise Http404("halaman tidak ada")
@@ -61,4 +64,6 @@ class Profile(generic.edit.CreateView):
     #     kwargs = super(Profile, self).get_form_kwargs()
     #     kwargs.update({'user':self.request.user})
     #     return kwargs
+    
+
         
