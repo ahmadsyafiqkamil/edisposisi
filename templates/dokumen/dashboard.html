@@ -56,7 +56,7 @@
                                         <th class="text-center">Pejabat Penandatangan</th>
                                         <th class="text-center">Perihal</th>
                                         <th class="text-center">Lampiran</th>
-                                        <th class="text-center">Status</th>
+{#                                        <th class="text-center">Status</th>#}
                                         <th class="text-center">Actions</th>
                                     </tr>
                                     </thead>
@@ -82,16 +82,16 @@
                                                 {% else %}
                                                     Belum ada lampiran
                                                 {% endif %}
-                                            <td>{% if nd.status == '0' %}
-                                                BELUM DIPROSES
-                                            {% elif nd.status == "1" %}
-                                                PROSES
-                                            {% elif nd.status == '2' %}
-                                                SUDAH DIDISPOSISIKAN
-                                            {% elif nd.status == '3' %}
-                                                BATAL
-                                            {% endif %}
-                                            </td>
+{#                                            <td>{% if nd.status == '0' %}#}
+{#                                                BELUM DIPROSES#}
+{#                                            {% elif nd.status == "1" %}#}
+{#                                                PROSES#}
+{#                                            {% elif nd.status == '2' %}#}
+{#                                                SUDAH DIDISPOSISIKAN#}
+{#                                            {% elif nd.status == '3' %}#}
+{#                                                BATAL#}
+{#                                            {% endif %}#}
+{#                                            </td>#}
 
 
                                             <td class="text-center">
