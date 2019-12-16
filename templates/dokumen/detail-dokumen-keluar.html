@@ -41,15 +41,7 @@
             <div class="panel-body">
 
                 {#            {{ tujuan.status }}#}
-                <div id="info">
-                    {% if tujuan.status == 1 or tujuan.status is None  %}
-                        <p style="font-size: x-large" id="info-{{ dokumen.slug }}" class="text-center bg-primary">Sudah
-                            Di baca</p>
-                    {% else %}
-                        <p style="font-size: x-large" id="info-{{ dokumen.slug }}" class="text-center bg-warning">Belum
-                            Di baca</p>
-                    {% endif %}
-                </div>
+
 
                 <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="hover">
                     <li>
@@ -148,10 +140,14 @@
                         <label class="col-lg-2 control-label"><b>Tujuan</b></label>
                         <div class="col-lg-10">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-11">
                                     <ul>
-                                        {% for foo in dokumen.tujuan.all %}
-                                            <li>{{ foo }}</li>
+                                        {% for foo in data_tujuan %}
+                                            {% if foo.status == 1%}
+                                                <li> <p class="text-center bg-primary"> {{ foo.fungsi }}</p></li>
+                                            {% else %}
+                                                <li> <p class="text-center bg-warning"> {{ foo.fungsi }}</p></li>
+                                            {% endif %}
                                         {% endfor %}
                                     </ul>
 

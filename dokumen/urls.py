@@ -15,7 +15,8 @@ urlpatterns = [
 	path('batal-dokumen', views.BatalDokumen.as_view(), name='batal-dokumen'),
 	path('baca-dokumen', views.BacaDokumen.as_view(), name='baca-dokumen'),
 	path('detail-dokumen/<slug:slug>', views.DetailDokumen.as_view(), name='detail-dokumen'),
-	
+	path('detail-dokumen-keluar/<slug:slug>', views.DetailDokumenKeluar.as_view(), name='detail-dokumen-keluar'),
+
 	
 
 ]

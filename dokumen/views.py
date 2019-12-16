@@ -31,16 +31,16 @@ class dashboard(generic.TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(dashboard, self).get_context_data()
 		if self.request.user.is_admin:
-			
-
 			context['data_surat_masuk'] = Dokumen.objects.exclude(status=3)
 			context['data_surat_keluar'] = Dokumen.objects.exclude(status=3)
 		elif self.request.user.is_staff:
+			Dokumen.objects.exclude(status=3).filter(fungsi=38).values('tujuandokumen__status')
 			context['data_surat_keluar'] = Dokumen.objects.exclude(status=3).filter(
 				fungsi=ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk)
 			context['data_surat_masuk'] = Dokumen.objects.exclude(status=3).filter(
-				tujuan=ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk)
-		# context['jenis_dokumen'] = JenisDokumen.objects.all()
+				tujuan=ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk).values('nomor_surat_lengkap','klasifikasi__kode','klasifikasi__nama_klasifikasi','pejabat_penandatangan','tujuandokumen__status','slug')
+			# context['coba'] = data
+
 		return context
 
 
@@ -225,23 +225,33 @@ class EditDokumen(generic.edit.UpdateView):
 		return self.render_to_response(self.get_context_data(form=form))
 
 
+
 @method_decorator(login_required, name='dispatch')
 class DetailDokumen(generic.DetailView):
 	template_name = 'dokumen/detail-dokumen.html'
 	model = Dokumen
-	
+
 	def get_context_data(self, **kwargs):
 		context = super(DetailDokumen, self).get_context_data(**kwargs)
 		context['tujuan'] = TujuanDokumen.objects.get(fungsi=self.request.session['KODE_FUNGSI'],dokumen=Dokumen.objects.get(slug=self.kwargs.get('slug')).pk)
 		context['dokumen'] = Dokumen.objects.get(slug=self.kwargs.get('slug'))
 		return context
 
+@method_decorator(login_required, name='dispatch')
+class DetailDokumenKeluar(generic.DetailView):
+	model = Dokumen
+	template_name = 'dokumen/detail-dokumen-keluar.html'
 
-# tidak dipakai
+	def get_context_data(self, **kwargs):
+		print(self.kwargs.get('slug'))
+		context = super(DetailDokumenKeluar, self).get_context_data(**kwargs)
+		context['data_tujuan'] = TujuanDokumen.objects.filter(dokumen__slug=self.kwargs.get('slug'))
+		return context
+
 @method_decorator(login_required, name='dispatch')
 class Laporan(generic.TemplateView):
 	template_name = 'dokumen/laporan-dokumen.html'
-	
+
 	def get_context_data(self, **kwargs):
 		context = super(Laporan, self).get_context_data()
 		if self.request.user.is_admin:
@@ -252,6 +262,7 @@ class Laporan(generic.TemplateView):
 				fungsi=ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk)
 		# context['jenis_dokumen'] = JenisDokumen.objects.all()
 		return context
+# tidak dipakai
 
 # Batal Dokumen
 
