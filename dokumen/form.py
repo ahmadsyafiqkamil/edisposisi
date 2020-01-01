@@ -26,7 +26,7 @@ class DokumenForm(forms.ModelForm):
 	
 	class Meta:
 		model = Dokumen
-		fields = ('jenis_dokumen', 'klasifikasi', 'fungsi', 'tujuan', 'tanggal', 'pejabat_penandatangan', 'perihal',)
+		fields = ('jenis_dokumen', 'klasifikasi', 'fungsi', 'tanggal', 'pejabat_penandatangan', 'tujuan','tujuan_eksternal',  'perihal')
 		
 		widgets = {
 			'jenis_dokumen': forms.Select(
@@ -48,7 +48,8 @@ class DokumenForm(forms.ModelForm):
 				attrs={
 					'class': 'form-control',
 					'cols': '40',
-					'row': '10'
+					'row': '10',
+					'placeholder':'Masukkan Perihal'
 				}
 			),
 			
@@ -56,8 +57,15 @@ class DokumenForm(forms.ModelForm):
 				attrs={
 					'class': 'js-example-basic-multiple'
 				}
-			)
-			
+			),
+			'tujuan_eksternal': forms.Textarea(
+				attrs={
+					'class': 'form-control',
+					'cols': '40',
+					'row': '10',
+					'placeholder':'Pisahkan Tujuan Eksternal dengan # di setiap tujuan'
+				}
+			),
 		}
 		
 		labels = {
@@ -65,8 +73,9 @@ class DokumenForm(forms.ModelForm):
 			'klasifikasi': 'Kode Klasifikasi',
 			'fungsi': 'Kode Fungsi',
 			'tujuan': 'Tujuan Dokumen',
+			'tujuan_eksternal': 'Tujuan Eksternal',
 			'tanggal': 'Tanggal',
-			'pejabat_penandatangan': 'Pejabat Penandatangan',
+			'pejabat_penandatangan': 'Pembuat Dokumen',
 			'perihal': 'Perihal Dokumen',
 			'file_dokumen': 'File'
 		}
@@ -90,12 +99,13 @@ class EditForm(forms.ModelForm):
 			attrs={'id': 'datepicker'}
 		)
 	)
-	
+
 	class Meta:
 		model = Dokumen
-		fields = ('jenis_dokumen', 'klasifikasi', 'fungsi', 'tujuan', 'tanggal', 'pejabat_penandatangan', 'perihal',
-		          'file_dokumen')
-		
+		fields = (
+		'jenis_dokumen', 'klasifikasi', 'fungsi', 'tanggal', 'pejabat_penandatangan', 'tujuan', 'tujuan_eksternal',
+		'perihal','file_dokumen')
+
 		widgets = {
 			'jenis_dokumen': forms.Select(
 				attrs={
@@ -116,30 +126,40 @@ class EditForm(forms.ModelForm):
 				attrs={
 					'class': 'form-control',
 					'cols': '40',
-					'row': '10'
+					'row': '10',
+					'placeholder': 'Masukkan Perihal'
+				}
+			),
+
+			'tujuan': forms.SelectMultiple(
+				attrs={
+					'class': 'js-example-basic-multiple'
+				}
+			),
+			'tujuan_eksternal': forms.Textarea(
+				attrs={
+					'class': 'form-control',
+					'cols': '40',
+					'row': '10',
+					'placeholder': 'Pisahkan Tujuan Eksternal dengan # di setiap tujuan'
 				}
 			),
 			'file_dokumen': forms.ClearableFileInput(
 				attrs={
 					'class': 'file-styled'
 				}
-			
-			),
-			'tujuan': forms.SelectMultiple(
-				attrs={
-					'class': 'js-example-basic-multiple'
-				}
+
 			)
-			
 		}
-		
+
 		labels = {
 			'jenis_dokumen': 'Jenis Dokumen',
 			'klasifikasi': 'Kode Klasifikasi',
 			'fungsi': 'Kode Fungsi',
 			'tujuan': 'Tujuan Dokumen',
+			'tujuan_eksternal': 'Tujuan Eksternal',
 			'tanggal': 'Tanggal',
-			'pejabat_penandatangan': 'Pejabat Penandatangan',
+			'pejabat_penandatangan': 'Pembuat Dokumen',
 			'perihal': 'Perihal Dokumen',
 			'file_dokumen': 'File'
 		}

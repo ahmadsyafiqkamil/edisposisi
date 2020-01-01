@@ -246,6 +246,16 @@ class DetailDokumenKeluar(generic.DetailView):
 		print(self.kwargs.get('slug'))
 		context = super(DetailDokumenKeluar, self).get_context_data(**kwargs)
 		context['data_tujuan'] = TujuanDokumen.objects.filter(dokumen__slug=self.kwargs.get('slug'))
+		a = Dokumen.objects.values_list('tujuan_eksternal',flat=True).get(slug=self.kwargs.get('slug'))
+		print(a)
+		if a is None :
+			context['tujuan_eksternal']  = None
+		else:
+			url = a
+			data = url.split("#")
+			context['tujuan_eksternal'] = data
+
+			print(a)
 		return context
 
 @method_decorator(login_required, name='dispatch')

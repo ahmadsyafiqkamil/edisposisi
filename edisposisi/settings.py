@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dokumen.apps.DokumenConfig',
     'accounts.apps.AccountsConfig',
+    # 'api.apps.ApiConfig',
     'widget_tweaks',
     'bootstrap3',
     'bootstrap_datepicker_plus',

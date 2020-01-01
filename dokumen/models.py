@@ -64,7 +64,7 @@ class Dokumen(models.Model):
     nomor_surat_lengkap = models.CharField(max_length=255, blank=True, null=True, verbose_name='Nomor Surat Lengkap')
     nomor_surat = models.IntegerField(verbose_name='Nomor Surat')
     tanggal = models.DateField(verbose_name='Tanggal')
-    pejabat_penandatangan = models.CharField(max_length=255, verbose_name='Pejabat Penandatangan')
+    pejabat_penandatangan = models.CharField(max_length=255, verbose_name='Pembuat Dokumen')
     tujuan = models.ManyToManyField(Fungsi, through='TujuanDokumen',through_fields=('dokumen', 'fungsi'), related_name='tujuan_dokumen')
     # tujuan = models.ManyToManyField(Fungsi, verbose_name='Tujuan Dokumen')
     perihal = models.TextField(blank=True, null=True, verbose_name='Perihal')
@@ -73,7 +73,7 @@ class Dokumen(models.Model):
     klasifikasi = models.ForeignKey(Klasifikasi, on_delete=models.CASCADE, verbose_name='Tujuan Dokumen',related_name='klasifikasi_dokumen')
     file_dokumen = models.FileField(upload_to='document/%Y-%m-%d/',validators=[validate_file_extension])
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,verbose_name='Pengirim', related_name='pengirim')
-    # keterangan = models.CharField(max_length=255,blank=True,null=True, verbose_name='Keterangan')
+    tujuan_eksternal = models.TextField(blank=True,null=True, verbose_name='Tujuan Eksternal')
     status = models.CharField(max_length=10,choices=pilihan_status, default=0,null=True)
     
     def save(self, *args,**kwargs):

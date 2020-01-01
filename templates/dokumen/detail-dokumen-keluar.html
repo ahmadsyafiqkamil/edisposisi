@@ -29,13 +29,13 @@
         <div class="panel panel-primary ">
             <div class="panel-heading">
                 <h5 class="panel-title">Detail Surat</h5>
-{#                <div class="heading-elements">#}
-{#                    <ul class="icons-list">#}
-{#                        <li><a data-action="collapse"></a></li>#}
-{#                        <li><a data-action="reload"></a></li>#}
-{#                        <li><a data-action="close"></a></li>#}
-{#                    </ul>#}
-{#                </div>#}
+                {#                <div class="heading-elements">#}
+                {#                    <ul class="icons-list">#}
+                {#                        <li><a data-action="collapse"></a></li>#}
+                {#                        <li><a data-action="reload"></a></li>#}
+                {#                        <li><a data-action="close"></a></li>#}
+                {#                    </ul>#}
+                {#                </div>#}
             </div>
 
             <div class="panel-body">
@@ -105,6 +105,7 @@
                     </li>
                 </ul>
 
+
                 <div class="form-horizontal">
                     <div class="form-group">
                         <label class="col-lg-2 control-label"><b>Jenis Dokumen</b></label>
@@ -143,13 +144,35 @@
                                 <div class="col-md-11">
                                     <ul>
                                         {% for foo in data_tujuan %}
-                                            {% if foo.status == 1%}
-                                                <li> <p class="text-center bg-primary"> {{ foo.fungsi }}</p></li>
+                                            {% if foo.status == 1 %}
+                                                <li><p class="text-center bg-primary"> {{ foo.fungsi }}</p></li>
                                             {% else %}
-                                                <li> <p class="text-center bg-warning"> {{ foo.fungsi }}</p></li>
+                                                <li><p class="text-center bg-warning"> {{ foo.fungsi }}</p></li>
                                             {% endif %}
                                         {% endfor %}
                                     </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Tujuan Eksternal</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {#                                    {{ dokumen.tujuan_eksternal }}#}
+                                    {% if tujuan_eksternal is None %}
+                                        Tidak ada tujuan eksternal
+                                    {% else %}
+                                        <ul>
+                                            {% for foo in tujuan_eksternal %}
+                                                <li>{{ foo }}</li>
+                                            {% endfor %}
+                                        </ul>
+
+                                    {% endif %}
 
 
                                 </div>
@@ -177,7 +200,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-2 control-label"><b>Pejabat Penandatangan</b></label>
+                        <label class="col-lg-2 control-label"><b>Perihal</b></label>
                         <div class="col-lg-10">
                             <div class="row">
                                 <textarea rows="5" cols="5" class="form-control"
@@ -225,11 +248,10 @@
                             $("#info-" + slug).removeClass()
                             $("#info-" + slug).toggleClass("text-center bg-primary").text("Sudah Di baca")
 
-                            $(".fab-menu-inner #link-"+slug).attr("onclick","link arsip")
-                            $(".fab-menu-inner #label-"+slug).attr("data-fab-label","Arsipkan")
-                            $(".fab-menu-inner #icon-"+slug).attr("class","icon-archive")
+                            $(".fab-menu-inner #link-" + slug).attr("onclick", "link arsip")
+                            $(".fab-menu-inner #label-" + slug).attr("data-fab-label", "Arsipkan")
+                            $(".fab-menu-inner #icon-" + slug).attr("class", "icon-archive")
                             {#window.location.replace({% url 'dokumen:detail-dokumen' %}+slug)#}
-
 
 
                         }
