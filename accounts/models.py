@@ -30,7 +30,8 @@ class UserManager(BaseUserManager):
 		user.set_password(password)
 		user.user_name = user_name
 		user.admin = False
-		user.staff = True
+		user.staff = False
+		user.staff_dokumen = False
 		user.save(using=self._db)
 		return user
 	
@@ -46,6 +47,7 @@ class UserManager(BaseUserManager):
 		)
 		user.admin = True
 		user.staff = True
+		user.staff_dokumen = True
 		user.save(using=self._db)
 		return user
 
@@ -61,6 +63,7 @@ class User(AbstractBaseUser):
 	# user_nama_lengkap = models.CharField(max_length=255, blank=True, verbose_name="Nama Lengkap")
 	admin = models.BooleanField(default=False)  # a superuser
 	staff = models.BooleanField(default=False)  # a staffuser
+	staff_dokumen = models.BooleanField(default=False)  # a staffuser
 	timestamp = models.DateTimeField(auto_now_add=True)
 	# notice the absence of a "Password field", that's built in.
 	
@@ -110,6 +113,11 @@ class User(AbstractBaseUser):
 	def is_staff(self):
 		"Is the user a admin member?"
 		return self.staff
+
+	@property
+	def is_staff_dokumen(self):
+		"Is the user a admin member?"
+		return self.staff_dokumen
 	
 	def get_full_name(self):
 		# return ProfileUser.objects.get(user=self.pk)

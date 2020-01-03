@@ -8,3 +8,4 @@ from .models import Dokumen,Fungsi,JenisDokumen,Klasifikasi
 admin.site.register(Klasifikasi)
 admin.site.register(Fungsi)
 admin.site.register(Dokumen)
+admin.site.register(JenisDokumen)

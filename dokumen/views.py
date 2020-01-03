@@ -40,6 +40,10 @@ class dashboard(generic.TemplateView):
 			context['data_surat_masuk'] = Dokumen.objects.exclude(status=3).filter(
 				tujuan=ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk).values('nomor_surat_lengkap','klasifikasi__kode','klasifikasi__nama_klasifikasi','pejabat_penandatangan','tujuandokumen__status','slug')
 			# context['coba'] = data
+		elif self.request.user.is_staff_dokumen:
+			Dokumen.objects.exclude(status=3).filter(fungsi=38).values('tujuandokumen__status')
+			context['data_surat_keluar'] = Dokumen.objects.exclude(status=3).filter(
+				fungsi=ProfileUser.objects.get(user=self.request.user.pk).fungsi.pk)
 
 		return context
 
@@ -55,7 +59,7 @@ class BuatDokumen(generic.edit.CreateView):
 		kwargs.update({'user': self.request.user})
 		if self.request.user.is_admin:
 			kwargs.update({'fungsi': ''})
-		elif self.request.user.is_staff:
+		elif self.request.user.is_staff or self.request.user.is_staff_dokumen:
 			kwargs.update({'fungsi': ProfileUser.objects.get(user=self.request.user.pk)})
 		return kwargs
 	
@@ -166,7 +170,7 @@ class EditDokumen(generic.edit.UpdateView):
 		kwargs.update({'user': self.request.user})
 		if self.request.user.is_admin:
 			kwargs.update({'fungsi': ''})
-		elif self.request.user.is_staff:
+		elif self.request.user.is_staff or self.request.user.is_staff_dokumen:
 			kwargs.update({'fungsi': ProfileUser.objects.get(user=self.request.user.pk)})
 		return kwargs
 	
@@ -188,8 +192,10 @@ class EditDokumen(generic.edit.UpdateView):
 		print("id slug ", self.kwargs.get('slug'))
 		print("id klasifikasi terakhir ", id_klasifikasi_terakhir)
 		#
+		nomor_sekarang = Dokumen.objects.get(slug=self.kwargs.get('slug')).nomor_surat
+		print('nomor sekarang ',nomor_sekarang)
 		if id_klasifikasi == id_klasifikasi_terakhir:
-			nomor_surat = nomor_terakhir
+			nomor_surat = nomor_sekarang
 		else:
 			print(nomor_terakhir)
 			print(tahun)

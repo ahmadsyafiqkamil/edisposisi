@@ -27,21 +27,24 @@
             <div class="panel panel-flat">
                 <div class="panel-heading">
                     <h6 class="panel-title"></h6>
-{#                    <div class="heading-elements">#}
-{#                        <ul class="icons-list">#}
-{#                            <li><a data-action="collapse"></a></li>#}
-{#                            <li><a data-action="reload"></a></li>#}
-{#                            <li><a data-action="close"></a></li>#}
-{#                        </ul>#}
-{#                    </div>#}
+                    {#                    <div class="heading-elements">#}
+                    {#                        <ul class="icons-list">#}
+                    {#                            <li><a data-action="collapse"></a></li>#}
+                    {#                            <li><a data-action="reload"></a></li>#}
+                    {#                            <li><a data-action="close"></a></li>#}
+                    {#                        </ul>#}
+                    {#                    </div>#}
                 </div>
 
                 <div class="panel-body">
                     <div class="tabbable">
                         <ul class="nav nav-tabs nav-tabs-top nav-justified">
                             <li class="active"><a href="#top-justified-tab1" data-toggle="tab">Surat Keluar</a></li>
-                            <li><a href="#top-justified-tab2" data-toggle="tab">Surat Masuk</a></li>
-
+                            {% if request.user.is_staff_dokumen %}
+{#                                {% pass %}#}
+                            {% else %}
+                                <li><a href="#top-justified-tab2" data-toggle="tab">Surat Masuk</a></li>
+                            {% endif %}
                         </ul>
 
                         <div class="tab-content">
@@ -56,7 +59,7 @@
                                         <th class="text-center">Pembuat Dokumen</th>
                                         <th class="text-center">Perihal</th>
                                         <th class="text-center">Lampiran</th>
-{#                                        <th class="text-center">Status</th>#}
+                                        {#                                        <th class="text-center">Status</th>#}
                                         <th class="text-center">Actions</th>
                                     </tr>
                                     </thead>
@@ -82,16 +85,16 @@
                                                 {% else %}
                                                     Belum ada lampiran
                                                 {% endif %}
-{#                                            <td>{% if nd.status == '0' %}#}
-{#                                                BELUM DIPROSES#}
-{#                                            {% elif nd.status == "1" %}#}
-{#                                                PROSES#}
-{#                                            {% elif nd.status == '2' %}#}
-{#                                                SUDAH DIDISPOSISIKAN#}
-{#                                            {% elif nd.status == '3' %}#}
-{#                                                BATAL#}
-{#                                            {% endif %}#}
-{#                                            </td>#}
+                                                {#                                            <td>{% if nd.status == '0' %}#}
+                                                {#                                                BELUM DIPROSES#}
+                                                {#                                            {% elif nd.status == "1" %}#}
+                                                {#                                                PROSES#}
+                                                {#                                            {% elif nd.status == '2' %}#}
+                                                {#                                                SUDAH DIDISPOSISIKAN#}
+                                                {#                                            {% elif nd.status == '3' %}#}
+                                                {#                                                BATAL#}
+                                                {#                                            {% endif %}#}
+                                                {#                                            </td>#}
 
 
                                             <td class="text-center">
@@ -148,17 +151,17 @@
                                             <td>{{ nd.klasifikasi__kode }} - {{ nd.klasifikasi__nama_klasifikasi }}</td>
                                             <td>{{ nd.pejabat_penandatangan }}</td>
                                             <td>
-                                                {% if nd.tujuandokumen__status == 1  %}
+                                                {% if nd.tujuandokumen__status == 1 %}
                                                     <p style="font-size: medium" id="info-{{ dokumen.slug }}"
-                                                   class="text-center bg-primary">Sudah
-                                                    Di baca</p>
-{#                                                {{ nd.tujuandokumen__status }}#}
+                                                       class="text-center bg-primary">Sudah
+                                                        Di baca</p>
+                                                    {#                                                {{ nd.tujuandokumen__status }}#}
                                                 {% else %}
                                                     <p style="font-size: medium" id="info-{{ dokumen.slug }}"
-                                                   class="text-center bg-warning">Belum
-                                                    Di baca</p>
+                                                       class="text-center bg-warning">Belum
+                                                        Di baca</p>
                                                 {% endif %}
-{#                                                {{ nd.tujuandokumen__status }}#}
+                                                {#                                                {{ nd.tujuandokumen__status }}#}
                                             </td>
                                             <td class="text-center">
                                                 <ul class="icons-list">

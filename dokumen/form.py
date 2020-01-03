@@ -87,7 +87,7 @@ class DokumenForm(forms.ModelForm):
 		if user.is_admin:
 			print("admin")
 			self.fields['fungsi'].queryset = Fungsi.objects.all()
-		elif user.is_staff:
+		elif user.is_staff or user.is_staff_dokumen:
 			print(fungsi.fungsi.pk)
 			self.fields['fungsi'].queryset = Fungsi.objects.filter(pk = fungsi.fungsi.pk)
 
@@ -171,7 +171,7 @@ class EditForm(forms.ModelForm):
 		if user.is_admin:
 			print("admin")
 			self.fields['fungsi'].queryset = Fungsi.objects.all()
-		elif user.is_staff:
+		elif user.is_staff or user.is_staff_dokumen:
 			print(fungsi.fungsi.pk)
 			self.fields['fungsi'].queryset = Fungsi.objects.filter(pk=fungsi.fungsi.pk)
 			

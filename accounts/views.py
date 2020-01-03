@@ -27,7 +27,7 @@ def login(request):
             # request.session['FOTO'] = user.get_foto()
             if user.is_admin:
                 return redirect('dokumen:dashboard')
-            elif user.is_staff:
+            elif user.is_staff or user.is_staff_dokumen:
                 request.session['KODE_FUNGSI'] =ProfileUser.objects.values_list("fungsi", flat=True).get(user=user.pk)
                 return redirect('dokumen:dashboard')
             else:

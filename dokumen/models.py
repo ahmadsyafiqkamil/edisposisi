@@ -63,6 +63,7 @@ class Dokumen(models.Model):
     slug = models.SlugField(unique=True)
     nomor_surat_lengkap = models.CharField(max_length=255, blank=True, null=True, verbose_name='Nomor Surat Lengkap')
     nomor_surat = models.IntegerField(verbose_name='Nomor Surat')
+    # nomor_surat_back = models.CharField(max_length=2,verbose_name='Nomor Backdate', null=True,blank=True)
     tanggal = models.DateField(verbose_name='Tanggal')
     pejabat_penandatangan = models.CharField(max_length=255, verbose_name='Pembuat Dokumen')
     tujuan = models.ManyToManyField(Fungsi, through='TujuanDokumen',through_fields=('dokumen', 'fungsi'), related_name='tujuan_dokumen')
