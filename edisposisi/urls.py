@@ -26,6 +26,7 @@ from django.utils.decorators import method_decorator
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dd/', include('dokumen.urls')),
+    path('surat/', include('surat.urls')),
     path('', include('accounts.urls')),
     path('select2/', include('django_select2.urls')),
 

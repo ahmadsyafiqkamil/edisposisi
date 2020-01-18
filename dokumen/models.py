@@ -7,14 +7,6 @@ from django.utils.text import slugify
 from django.urls import reverse
 from .validators import validate_file_extension
 
-
-
-
-# Create your models here.
-
-# class fungsi(models.Model):
-#     nama = models.CharField(max_length=255, blank=True, verbose_name="Nama Fungsi")
-#     koordinator = models.CharField(max_length=255, blank=True, verbose_name="Koordinator Fungsi")
 class Klasifikasi(models.Model):
     kode = models.CharField(max_length=5, verbose_name='Kode Klasifikasi')
     nama_klasifikasi = models.CharField(max_length=100, verbose_name='Nama Klasifikasi')
@@ -25,14 +17,11 @@ class Klasifikasi(models.Model):
     def __str__(self):
         return "{} - {}".format(self.kode,self.nama_klasifikasi)
 
-    # def get_kode(self):
-    #     return self.kode
 
 class Fungsi(models.Model):
     kode = models.CharField(max_length=10, verbose_name='Kode Fungsi')
     fungsi = models.CharField(max_length=100, verbose_name='Fungsi / Bidang Teknis')
-    koordinator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='koordinator',
-                                    verbose_name='Koordinator Fungsi')
+    # koordinator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='koordinator',verbose_name='Koordinator Fungsi')
 
     class Meta:
         db_table = 'tbl_fungsi'
@@ -53,13 +42,7 @@ class JenisDokumen(models.Model):
 
 
 class Dokumen(models.Model):
-    pilihan_status = [
-        ('0','BELUM DIPROSES'),
-        ('1','PROSES'),
-        ('2','DISPOSISI'),
-        ('3','BATAL'),
 
-    ]
     slug = models.SlugField(unique=True)
     nomor_surat_lengkap = models.CharField(max_length=255, blank=True, null=True, verbose_name='Nomor Surat Lengkap')
     nomor_surat = models.IntegerField(verbose_name='Nomor Surat')
@@ -75,7 +58,9 @@ class Dokumen(models.Model):
     file_dokumen = models.FileField(upload_to='document/%Y-%m-%d/',validators=[validate_file_extension])
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True,verbose_name='Pengirim', related_name='pengirim')
     tujuan_eksternal = models.TextField(blank=True,null=True, verbose_name='Tujuan Eksternal')
-    status = models.CharField(max_length=10,choices=pilihan_status, default=0,null=True)
+    isi_dokumen = models.TextField(blank=True,null=True, verbose_name='Isi Dokumen')
+    # 0 belum dittd, 1 sudah dittd
+    status = models.CharField(max_length=10, default=0,null=True)
     
     def save(self, *args,**kwargs):
         self.slug = slugify(self.nomor_surat_lengkap)
@@ -100,3 +85,24 @@ class TujuanDokumen(models.Model):
         db_table = 'tbl_tujuan_dokumen'
     
     
+class ValidasiDokumen(models.Model):
+    dokumen = models.ForeignKey(Dokumen, on_delete=models.CASCADE)
+    penandatangan = models.ForeignKey(User, on_delete=models.CASCADE, related_name='penandatangan_dokumen', verbose_name='Penandatangan Dokumen')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'tbl_validasi_dokumen'
+
+    def __str__(self):
+        return self.dokumen.nomor_surat_lengkap
+
+
+class GrupTujuan(models.Model):
+    nama = models.CharField(max_length=50, verbose_name='Nama Grup')
+    fungsi = models.ForeignKey(Fungsi,related_name='grup_fungsi', on_delete=models.CASCADE, verbose_name='Fungsi')
+
+    class Meta:
+        db_table = 'tbl_grup_tujuan'
+
+    def __str__(self):
+        return self.nama

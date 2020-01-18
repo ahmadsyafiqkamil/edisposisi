@@ -7,8 +7,8 @@ from django.contrib import auth
 from django.http import Http404
 from django.views import generic
 from django.urls import reverse_lazy
-from .models import User,ProfileUser
-from .form import profileForm
+from .models import User
+# from .form import profileForm
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -28,8 +28,11 @@ def login(request):
             if user.is_admin:
                 return redirect('dokumen:dashboard')
             elif user.is_staff or user.is_staff_dokumen:
-                request.session['KODE_FUNGSI'] =ProfileUser.objects.values_list("fungsi", flat=True).get(user=user.pk)
+                request.session['KODE_FUNGSI'] = user.fungsi_id
                 return redirect('dokumen:dashboard')
+            elif user.is_korfung:
+                request.session['KODE_FUNGSI'] = user.fungsi_id
+                return redirect('dokumen:dashboard-korfung')
             else:
                 raise Http404("halaman tidak ada")
         else:
@@ -46,7 +49,7 @@ def register(request):
                 return render(request,'account/register.html',{'error':'email sudah dipakai'})
             except User.DoesNotExist:
                 user = User.objects.create_user(email=request.POST['email'],password=request.POST['ps1'],user_name=request.POST['username'])
-                auth.login(request,user)
+                # auth.login(request,user)
                 return redirect('accounts:login')
         else:
             return render(request,'account/register.html',{'errorps':'password tidak sama'})
@@ -58,10 +61,10 @@ def logout(request):
     auth.logout(request)
     return redirect('accounts:login')
 
-class Profile(generic.edit.CreateView):
-    model = ProfileUser
-    form_class = profileForm
-    template_name = 'account/profile.html'
+# class Profile(generic.edit.CreateView):
+#     model = ProfileUser
+#     form_class = profileForm
+#     template_name = 'account/profile.html'
     
     # def get_form_kwargs(self):
     #     kwargs = super(Profile, self).get_form_kwargs()

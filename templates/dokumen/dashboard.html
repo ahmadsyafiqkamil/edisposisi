@@ -41,7 +41,7 @@
                         <ul class="nav nav-tabs nav-tabs-top nav-justified">
                             <li class="active"><a href="#top-justified-tab1" data-toggle="tab">Surat Keluar</a></li>
                             {% if request.user.is_staff_dokumen %}
-{#                                {% pass %}#}
+                                {#                                {% pass %}#}
                             {% else %}
                                 <li><a href="#top-justified-tab2" data-toggle="tab">Surat Masuk</a></li>
                             {% endif %}
@@ -58,6 +58,7 @@
                                         <th class="text-center">Tujuan</th>
                                         <th class="text-center">Pembuat Dokumen</th>
                                         <th class="text-center">Perihal</th>
+                                        <th class="text-center">Status</th>
                                         <th class="text-center">Lampiran</th>
                                         {#                                        <th class="text-center">Status</th>#}
                                         <th class="text-center">Actions</th>
@@ -80,23 +81,22 @@
                                             <td>{{ nd.pejabat_penandatangan }}</td>
                                             <td>{{ nd.perihal }}</td>
                                             <td>
+                                                {% if nd.status ==  '1' %}
+                                                    <p style="font-size: medium" id="info-{{ nd.slug }}"
+                                                       class="text-center bg-primary">Sudah
+                                                        Ditandatangani</p>
+                                                {% else %}
+                                                    <p style="font-size: medium" id="info-{{ nd.slug }}"
+                                                       class="text-center bg-warning">Belum
+                                                        Ditandatangani</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>
                                                 {% if nd.file_dokumen %}
                                                     <a href="{{ nd.file_dokumen.url }}">lampiran</a>
                                                 {% else %}
                                                     Belum ada lampiran
                                                 {% endif %}
-                                                {#                                            <td>{% if nd.status == '0' %}#}
-                                                {#                                                BELUM DIPROSES#}
-                                                {#                                            {% elif nd.status == "1" %}#}
-                                                {#                                                PROSES#}
-                                                {#                                            {% elif nd.status == '2' %}#}
-                                                {#                                                SUDAH DIDISPOSISIKAN#}
-                                                {#                                            {% elif nd.status == '3' %}#}
-                                                {#                                                BATAL#}
-                                                {#                                            {% endif %}#}
-                                                {#                                            </td>#}
-
-
                                             <td class="text-center">
                                                 <ul class="icons-list">
                                                     <li class="dropdown">
@@ -114,6 +114,9 @@
                                                                 <a href="{% url 'dokumen:detail-dokumen-keluar' nd.slug %}">Detail</a>
                                                             </li>
 
+                                                            <li>
+                                                                <a href="{% url 'dokumen:print' nd.slug %}">print</a>
+                                                            </li>
                                                         </ul>
                                                     </li>
                                                 </ul>
@@ -140,7 +143,7 @@
                                         <th class="text-center">Actions</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="slug-{{ nd.slug }}">
 
                                     <p id="message"></p>
 
@@ -152,12 +155,12 @@
                                             <td>{{ nd.pejabat_penandatangan }}</td>
                                             <td>
                                                 {% if nd.tujuandokumen__status == 1 %}
-                                                    <p style="font-size: medium" id="info-{{ dokumen.slug }}"
+                                                    <p style="font-size: medium" id="info-{{ nd.slug }}"
                                                        class="text-center bg-primary">Sudah
                                                         Di baca</p>
                                                     {#                                                {{ nd.tujuandokumen__status }}#}
                                                 {% else %}
-                                                    <p style="font-size: medium" id="info-{{ dokumen.slug }}"
+                                                    <p style="font-size: medium" id="info-{{ nd.slug }}"
                                                        class="text-center bg-warning">Belum
                                                         Di baca</p>
                                                 {% endif %}
@@ -172,6 +175,16 @@
                                                         <ul class="dropdown-menu dropdown-menu-right">
                                                             <li>
                                                                 <a href="{% url 'dokumen:detail-dokumen' nd.slug %}">detail</a>
+                                                                {% if nd.tujuandokumen__status == 1 %}
+
+                                                                    {#                                                {{ nd.tujuandokumen__status }}#}
+                                                                {% else %}
+                                                                    <a id="link-{{ nd.slug }}" href="#"
+                                                                       data-id="{{ nd.slug }}"
+                                                                       onclick="baca(this.getAttribute('data-id'))">tandai
+                                                                        telah dibaca</a>
+                                                                {% endif %}
+
                                                             </li>
                                                         </ul>
                                                     </li>
@@ -198,44 +211,52 @@
     </div>
     <script type="text/javascript">
 
-        {#function baca(slug) {#}
-        {#    var action = confirm("Apakah anda yakin menandai dokumen ini telah dibaca?")#}
-        {#    if (action == true) {#}
-        {#        $.ajax({#}
-        {#            url: '{% url 'dokumen:baca-dokumen'%}',#}
-        {#            data: {#}
-        {#                'slug': slug,#}
-        {#            },#}
-        {#            dataType: 'json',#}
-        {#            success: function (data) {#}
-        {#                if (data.read) {#}
-        {#                    $(".datatable-basic #slug-" + slug + " #status-" + slug).toggleClass("bg-success text-highlight")#}
-        {#                    $(".datatable-basic #slug-" + slug + " #link-" + slug).text("Sudah terbaca")#}
-        {##}
-        {#                }#}
-        {#            }#}
-        {#        })#}
-        {#    }#}
-        {#}#}
+        function baca(slug) {
+            var action = confirm("Apakah anda yakin menandai dokumen ini telah dibaca?")
+            if (action == true) {
+                $.ajax({
+                    url: '{% url 'dokumen:baca-dokumen'%}',
+                    data: {
+                        'slug': slug,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.read) {
+                            console.log(".table #slug-" + slug + " #info-" + slug)
+                            $(".table #slug-" + slug + " #info-" + slug).removeClass();
+                            $(".table #slug-" + slug + " #info-" + slug).toggleClass("text-center bg-primary").text("Sudah Di baca");
 
-            function batal(slug) {
-                var action = confirm("apakah anda yakin membatalkan nomor dokumen ini?");
-                if (action == true) {
-                    $.ajax({
-                        url: '{% url 'dokumen:batal-dokumen' %}',
-                        data: {
-                            'slug': slug,
-                        },
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data.deleted) {
-                                $(".datatable-basic #slug-" + slug).remove()
-                            }
+                            document.getElementById("link-" + slug).remove();
+                            {#$(".fab-menu-inner #link-"+slug).attr("onclick","link arsip")#}
+                            {#$(".fab-menu-inner #label-"+slug).attr("data-fab-label","Arsipkan")#}
+                            {#$(".fab-menu-inner #icon-"+slug).attr("class","icon-archive")#}
+                            {#window.location.replace({% url 'dokumen:detail-dokumen' %}+slug)#}
+
+
                         }
-                    })
-                }
-
+                    }
+                })
             }
+        }
+
+        function batal(slug) {
+            var action = confirm("apakah anda yakin membatalkan nomor dokumen ini?");
+            if (action == true) {
+                $.ajax({
+                    url: '{% url 'dokumen:batal-dokumen' %}',
+                    data: {
+                        'slug': slug,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.deleted) {
+                            $(".datatable-basic #slug-" + slug).remove()
+                        }
+                    }
+                })
+            }
+
+        }
 
     </script>
     <script>

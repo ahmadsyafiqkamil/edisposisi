@@ -1,0 +1,79 @@
+{% load qr_code %}
+<html>
+<body>
+<p style="margin-left:0mm; margin-right:0mm; text-align:center"><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong>KEDUTAAN BESAR REPUBLIK INDONESIA</strong></span></span></p>
+
+<p style="margin-left:0mm; margin-right:0mm; text-align:center"><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong>KUALA LUMPUR</strong><strong>, MALAYSIA</strong></span></span></p>
+
+<p style="margin-left:0mm; margin-right:0mm; text-align:center">&nbsp;</p>
+
+<p style="margin-left:0mm; margin-right:0mm; text-align:center"><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong><u>NOTA DINAS</u></strong></span></span></p>
+<table align="center" border="1" cellpadding="1" cellspacing="1" style="width:1000px">
+	<tbody>
+		<tr>
+			<td style="width:162px">Nomor</td>
+			<td style="width:21px">:</td>
+			<td style="width:799px">{{ dokumen.nomor_surat_lengkap }}</td>
+		</tr>
+		<tr>
+			<td style="width:162px">Kepada</td>
+			<td style="width:21px">:</td>
+{#			<td style="width:21px">:</td>#}
+        <td style="width:799px">
+			{% for foo in dokumen.tujuan.all %}
+			{{ forloop.counter }}.{{ foo }}<br>
+			{% endfor %}
+        </td>
+
+
+		</tr>
+		<tr>
+			<td style="width:162px">Tembusan</td>
+			<td style="width:21px">:</td>
+			<td style="width:799px"></td>
+		</tr>
+		<tr>
+			<td style="width:162px">Dari</td>
+			<td style="width:21px">:</td>
+			<td style="width:799px">{{ dokumen.fungsi }}</td>
+		</tr>
+		<tr>
+			<td style="width:162px">Perihal</td>
+			<td style="width:21px">:</td>
+			<td style="width:799px">{{ dokumen.perihal }}</td>
+		</tr>
+	</tbody>
+</table>
+
+<p style="margin-left:0mm; margin-right:0mm"><br />
+{{ dokumen.isi_dokumen |safe }}
+
+<table align="right" border="1" cellpadding="1" cellspacing="1" style="width:100%">
+	<tbody>
+		<tr>
+			<td>
+			<p style="text-align:right">Kuala Lumpur, {{ dokumen.tanggal|date:'d M Y' }}</p>
+
+			<p style="text-align:right"></p>
+
+			<p style="text-align:right">&nbsp;</p>
+
+			<p style="text-align:right">&nbsp;</p>
+
+			<p style="text-align:right"><b><u>Korfung</u></b></p>
+			<p style="text-align:right">{{ dokumen.fungsi }}</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+{% if dokumen.status == '1' %}
+{% qr_from_text qr size="4" image_format="png" %}
+<br>
+<p style="text-align:left; font-size: x-small">Dokumen ini telah ditandatangani oleh {{ ttd.penandatangan }} pada jam {{ ttd.timestamp }}</p>
+    {% else %}
+    <p style="text-align:left; font-size: x-small">Dokumen ini belum ditandatangani </p>
+
+{% endif %}
+</body>
+</html>
+

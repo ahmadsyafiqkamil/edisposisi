@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block breadcrumb %}
+    <div class="page-header-content">
+        <div class="page-title">
+            <h5>
+                <i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Laporan</span>
+
+                <small class="display-block"></small>
+            </h5>
+        </div>
+
+        <div class="heading-elements">
+            <ul class="breadcrumb heading-text">
+                <li><a href="{% url 'dokumen:dashboard' %}"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li><a href="{% url 'dokumen:laporan-dokumen' %}"><i class="icon-home2 position-left"></i> Laporan
+                    Nota Dinas</a></li>
+                {#                <li><a href="components_breadcrumbs.html">Components</a></li>#}
+                {#                <li class="active">Location</li>#}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="content-wrapper">
+
+        <!-- Sidebars overview -->
+        <div class="panel panel-primary ">
+            <div class="panel-heading">
+                <h5 class="panel-title">Detail Surat</h5>
+                {#                <div class="heading-elements">#}
+                {#                    <ul class="icons-list">#}
+                {#                        <li><a data-action="collapse"></a></li>#}
+                {#                        <li><a data-action="reload"></a></li>#}
+                {#                        <li><a data-action="close"></a></li>#}
+                {#                    </ul>#}
+                {#                </div>#}
+            </div>
+
+            <div class="panel-body">
+                <div id="info">
+                    {% if dokumen.status == '1' %}
+                        <p style="font-size: x-large" id="info-{{ dokumen.slug }}" class="text-center bg-primary">Sudah
+                            Ditandatangani</p>
+                    {% else %}
+                        <p style="font-size: x-large" id="info-{{ dokumen.slug }}" class="text-center bg-warning">Belum
+                            Ditandatangani</p>
+                    {% endif %}
+                </div>
+{#            {{ dokumen.status }}#}
+                <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="hover">
+                    <li>
+                        <a class="fab-menu-btn btn bg-blue btn-float btn-rounded btn-icon">
+                            <i class="fab-icon-open icon-plus3"></i>
+                            <i class="fab-icon-close icon-cross2"></i>
+                        </a>
+
+                        <ul class="fab-menu-inner">
+                            {% if dokumen.status == '1' %}
+                                <li>
+                                    <div data-fab-label="Arsipkan">
+                                        <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">
+                                            <i id="icon-{{ dokumen.slug }}" class="icon-archive"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <div id="label-{{ dokumen.slug }}" data-fab-label="Tandai telah dibaca">
+                                        <a class="btn btn-default btn-rounded btn-icon btn-float"
+                                           id="link-{{ dokumen.slug }}" href="#" data-id="{{ dokumen.slug }}"
+                                           onclick="baca(this.getAttribute('data-id'))">
+                                            <i id="icon-{{ dokumen.slug }}" class="icon-reading"></i>
+                                        </a>
+
+                                    </div>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Jenis Dokumen</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.jenis_dokumen }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Nomor Surat</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.nomor_surat_lengkap }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Fungsi</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.fungsi }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Tujuan</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul>
+                                        {% for foo in dokumen.tujuan.all %}
+                                            <li>{{ foo }}</li>
+                                        {% endfor %}
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Tanggal</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.tanggal }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Pembuat Dokumen</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ dokumen.pejabat_penandatangan }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Perihal</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <textarea rows="5" cols="5" class="form-control"
+                                          disabled="disabled">{{ dokumen.perihal }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Isi Dokumen</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                {#                                <textarea class="ckeditor" name="editor-readonly" id="editor-readonly" rows="4" cols="4">#}
+                                {#                                    {{ dokumen.isi_dokumen }}#}
+                                {#                                </textarea>#}
+                                {{ dokumen.isi_dokumen|safe }}
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        var editor = CKEDITOR.replace('editor-readonly', {
+                            height: '400px'
+                        });
+                    </script>
+                </div>
+                {% if object.file_dokumen %}
+                    <div class="embed-responsive embed-responsive-16by9">
+
+                        <iframe class="embed-responsive-item" src="{{ object.file_dokumen.url }}"
+                                allowfullscreen></iframe>
+
+                    </div>
+                {% else %}
+                    Belum unggah file
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- /sidebar classes -->
+
+    </div>
+
+
+{% endblock %}
+{% block costum_js %}
+    <script type="text/javascript" src="{% static 'js/plugins/ui/fab.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/ui/prism.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/pages/extra_fab.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor.js' %} "></script>
+    <script type="text/javascript" src="{% static '/js/pages/editor_ckeditor.js' %}"></script>
+    <script>
+        function baca(slug) {
+            var action = confirm("Apakah anda yakin menandai dokumen ini telah dibaca?")
+            if (action == true) {
+                $.ajax({
+                    url: '{% url 'dokumen:ttd-korfung'%}',
+                    data: {
+                        'slug': slug,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.read) {
+                            $("#info-" + slug).removeClass()
+                            $("#info-" + slug).toggleClass("text-center bg-primary").text("Sudah Ditandatangani ")
+
+                            $(".fab-menu-inner #link-" + slug).attr("onclick", "link arsip")
+                            $(".fab-menu-inner #label-" + slug).attr("data-fab-label", "Arsipkan")
+                            $(".fab-menu-inner #icon-" + slug).attr("class", "icon-archive")
+                            {#window.location.replace({% url 'dokumen:detail-dokumen' %}+slug)#}
+
+
+                        }
+                    }
+                })
+            }
+        }
+    </script>
+{% endblock %}
+{% block costum_css %}
+    <style>
+        .pdfobject-container {
+            height: 30rem;
+            border: 1rem solid rgba(0, 0, 0, .1);
+        }
+
+
+    </style>
+
+{% endblock %}

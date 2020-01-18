@@ -29,20 +29,20 @@
         <div class="panel panel-primary ">
             <div class="panel-heading">
                 <h5 class="panel-title">Detail Surat</h5>
-{#                <div class="heading-elements">#}
-{#                    <ul class="icons-list">#}
-{#                        <li><a data-action="collapse"></a></li>#}
-{#                        <li><a data-action="reload"></a></li>#}
-{#                        <li><a data-action="close"></a></li>#}
-{#                    </ul>#}
-{#                </div>#}
+                {#                <div class="heading-elements">#}
+                {#                    <ul class="icons-list">#}
+                {#                        <li><a data-action="collapse"></a></li>#}
+                {#                        <li><a data-action="reload"></a></li>#}
+                {#                        <li><a data-action="close"></a></li>#}
+                {#                    </ul>#}
+                {#                </div>#}
             </div>
 
             <div class="panel-body">
 
                 {#            {{ tujuan.status }}#}
                 <div id="info">
-                    {% if tujuan.status == 1 or tujuan.status is None  %}
+                    {% if tujuan.status == 1 or tujuan.status is None %}
                         <p style="font-size: x-large" id="info-{{ dokumen.slug }}" class="text-center bg-primary">Sudah
                             Di baca</p>
                     {% else %}
@@ -189,6 +189,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Isi Dokumen</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <textarea class="ckeditor" name="editor-readonly" id="editor-readonly" rows="4" cols="4">
+                                    {{ dokumen.isi_dokumen }}
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        var editor = CKEDITOR.replace('editor-readonly', {
+                            height: '400px'
+                        });
+                    </script>
                 </div>
                 {% if object.file_dokumen %}
                     <div class="embed-responsive embed-responsive-16by9">
@@ -213,7 +229,8 @@
     <script type="text/javascript" src="{% static 'js/plugins/ui/fab.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/plugins/ui/prism.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/pages/extra_fab.js' %}"></script>
-
+    <script type="text/javascript" src="{% static 'ckeditor/ckeditor.js' %} "></script>
+        <script type="text/javascript" src="{% static '/js/pages/editor_ckeditor.js' %}"></script>
     <script>
         function baca(slug) {
             var action = confirm("Apakah anda yakin menandai dokumen ini telah dibaca?")
@@ -229,11 +246,10 @@
                             $("#info-" + slug).removeClass()
                             $("#info-" + slug).toggleClass("text-center bg-primary").text("Sudah Di baca")
 
-                            $(".fab-menu-inner #link-"+slug).attr("onclick","link arsip")
-                            $(".fab-menu-inner #label-"+slug).attr("data-fab-label","Arsipkan")
-                            $(".fab-menu-inner #icon-"+slug).attr("class","icon-archive")
+                            $(".fab-menu-inner #link-" + slug).attr("onclick", "link arsip")
+                            $(".fab-menu-inner #label-" + slug).attr("data-fab-label", "Arsipkan")
+                            $(".fab-menu-inner #icon-" + slug).attr("class", "icon-archive")
                             {#window.location.replace({% url 'dokumen:detail-dokumen' %}+slug)#}
-
 
 
                         }

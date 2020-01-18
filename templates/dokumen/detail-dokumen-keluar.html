@@ -43,34 +43,34 @@
                 {#            {{ tujuan.status }}#}
 
 
-                <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="hover">
-                    <li>
-                        <a class="fab-menu-btn btn bg-blue btn-float btn-rounded btn-icon">
-                            <i class="fab-icon-open icon-plus3"></i>
-                            <i class="fab-icon-close icon-cross2"></i>
-                        </a>
-
-                        <ul class="fab-menu-inner">
-                            {% if tujuan.status == 1 or tujuan.status is None %}
-                                <li>
-                                    <div data-fab-label="Arsipkan">
-                                        <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">
-                                            <i id="icon-{{ dokumen.slug }}" class="icon-archive"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                            {% else %}
-                                <li>
-                                    <div id="label-{{ dokumen.slug }}" data-fab-label="Tandai telah dibaca">
-                                        <a class="btn btn-default btn-rounded btn-icon btn-float"
-                                           id="link-{{ dokumen.slug }}" href="#" data-id="{{ dokumen.slug }}"
-                                           onclick="baca(this.getAttribute('data-id'))">
-                                            <i id="icon-{{ dokumen.slug }}" class="icon-reading"></i>
-                                        </a>
-
-                                    </div>
-                                </li>
-                            {% endif %}
+{#                <ul class="fab-menu fab-menu-fixed fab-menu-bottom-right" data-fab-toggle="hover">#}
+{#                    <li>#}
+{#                        <a class="fab-menu-btn btn bg-blue btn-float btn-rounded btn-icon">#}
+{#                            <i class="fab-icon-open icon-plus3"></i>#}
+{#                            <i class="fab-icon-close icon-cross2"></i>#}
+{#                        </a>#}
+{##}
+{#                        <ul class="fab-menu-inner">#}
+{#                            {% if tujuan.status == 1 or tujuan.status is None %}#}
+{#                                <li>#}
+{#                                    <div data-fab-label="Arsipkan">#}
+{#                                        <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
+{#                                            <i id="icon-{{ dokumen.slug }}" class="icon-archive"></i>#}
+{#                                        </a>#}
+{#                                    </div>#}
+{#                                </li>#}
+{#                            {% else %}#}
+{#                                <li>#}
+{#                                    <div id="label-{{ dokumen.slug }}" data-fab-label="Tandai telah dibaca">#}
+{#                                        <a class="btn btn-default btn-rounded btn-icon btn-float"#}
+{#                                           id="link-{{ dokumen.slug }}" href="#" data-id="{{ dokumen.slug }}"#}
+{#                                           onclick="baca(this.getAttribute('data-id'))">#}
+{#                                            <i id="icon-{{ dokumen.slug }}" class="icon-reading"></i>#}
+{#                                        </a>#}
+{##}
+{#                                    </div>#}
+{#                                </li>#}
+{#                            {% endif %}#}
                             {#                            <li>#}
                             {#                                <div data-fab-label="Disposisi">#}
                             {#                                    <a href="#" class="btn btn-default btn-rounded btn-icon btn-float">#}
@@ -101,9 +101,9 @@
                             {#                            </li>#}
 
 
-                        </ul>
-                    </li>
-                </ul>
+{#                        </ul>#}
+{#                    </li>#}
+{#                </ul>#}
 
 
                 <div class="form-horizontal">
@@ -190,7 +190,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-2 control-label"><b>Pejabat Penandatangan</b></label>
+                        <label class="col-lg-2 control-label"><b>Pembuat Dokumen</b></label>
                         <div class="col-lg-10">
                             <div class="row">
                                 <div class="col-md-12">
@@ -199,6 +199,21 @@
                             </div>
                         </div>
                     </div>
+                <div class="form-group">
+                        <label class="col-lg-2 control-label"><b>Isi Dokumen</b></label>
+                        <div class="col-lg-10">
+                            <div class="row">
+                                <textarea class="ckeditor" name="editor-readonly" id="editor-readonly" rows="4" cols="4">
+                                    {{ dokumen.isi_dokumen }}
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+<script>
+    var editor = CKEDITOR.replace('editor-readonly', {
+        height: '400px'
+    });
+</script>
                     <div class="form-group">
                         <label class="col-lg-2 control-label"><b>Perihal</b></label>
                         <div class="col-lg-10">
@@ -232,7 +247,8 @@
     <script type="text/javascript" src="{% static 'js/plugins/ui/fab.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/plugins/ui/prism.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/pages/extra_fab.js' %}"></script>
-
+ <script type="text/javascript" src="{% static 'ckeditor/ckeditor.js' %} "></script>
+{#    <script type="text/javascript" src="{% static '/js/pages/editor_ckeditor.js' %}"></script>#}
     <script>
         function baca(slug) {
             var action = confirm("Apakah anda yakin menandai dokumen ini telah dibaca?")
